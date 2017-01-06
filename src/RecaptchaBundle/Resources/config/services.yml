@@ -1,0 +1,24 @@
+services:
+#    recaptcha.example:
+#        class: RecaptchaBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+
+    recaptcha.verifier:
+        class: RecaptchaBundle\Services\RecaptchaVerifier
+        arguments:
+            - '%recaptcha.secret_key%'
+
+    recaptcha.validator:
+        class: RecaptchaBundle\Validator\Constraints\RecaptchaValidator
+        arguments:
+            - '@recaptcha.verifier'
+            - '@request_stack'
+        tags:
+        - { name: validator.constraint_validator, alias: alias_name }
+
+    recaptcha.form.type:
+        class: RecaptchaBundle\Form\RecaptchaType
+        arguments:
+            -   '%recaptcha.site_key%'
+        tags:
+            - { name: form.type }

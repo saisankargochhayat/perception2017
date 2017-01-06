@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Files list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Path</th>
+                <th>Createdby</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+            <tr>
+                <td><a href="{{ path('admin_file_show', { 'id': file.id }) }}">{{ file.id }}</a></td>
+                <td>{{ file.name }}</td>
+                <td>{{ file.description }}</td>
+                <td>{{ file.path }}</td>
+                <td>{{ file.createdBy }}</td>
+                <td>{% if file.createdAt %}{{ file.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if file.updatedAt %}{{ file.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_file_show', { 'id': file.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_file_edit', { 'id': file.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_file_new') }}">Create a new file</a>
+        </li>
+    </ul>
+{% endblock %}

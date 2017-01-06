@@ -1,0 +1,208 @@
+{% block body %}
+    <div id="profile" style="height: 500px; min-height: 500px;" data-csrf="{{ csrf_token('update') }}">
+        <h4>Please complete your details.</h4>
+            <div class="panel-group accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#aco1">
+                                <div class="value">
+                                    Name :
+                                    <div id="realname">
+                                        {{ firstName }} {{ lastName }}
+                                        <span class="edit-button"> Edit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% if allowEdit %}
+                        <div id="aco1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form class="form">
+                                    <input type="text" id="firstName" value="{{ firstName }}" class="fifty form-control" placeholder="firstName" />
+                                    <input type="text" id="lastName" value="{{ lastName }}" class="fifty form-control" placeholder="Last Name" />
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#aco2">
+                                <div class="value" id="username-change" >
+                                    Link to Profile :
+                                    <div id="username-val">
+                                        {% if username|length > 0 %}
+                                            <a id="faculty-username" style="line-height: 1;float:right;" href="{{ app.request.schemeAndHttpHost }}/u/{{ username }}">{{ app.request.schemeAndHttpHost }}/u/{{ username }}</a>
+                                        {% else %}
+                                            Unspecified
+                                        {% endif %}
+                                        <span class="edit-button"> Edit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% if allowEdit %}
+                        <div id="aco2" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div id="username">
+                                    <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="loader" />
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="panel panel-default" id="designation">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol14">
+                                <div class="value">
+                                    Designation :
+                                    <div id="designation-val">
+                                        {% if designation is not empty %}
+                                            {{ designation }}
+                                        {% else %}
+                                            Unspecified
+                                        {% endif %}
+                                        <span class="edit-button"> Edit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% if allowEdit %}
+                        <div id="lol14" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form class="form">
+                                    <div class="">
+                                        Add your Designation (Ex. Professor, Asst. Professor. etc.)<i class="icon-info-circled tooltip-1" title="It will be displayed in your facultyDetails and uploads."></i>
+                                        <input type="button" class="btn btn-xs btn-info" id="professor" value="Professor"/>
+                                        <input type="button" class="btn btn-xs btn-info" id="asst-professor" value="Asst. Professor"/>
+                                        <input type="text" class="form-control" id="profile-designation" value="{{ designation }}" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#aco4">
+                                <div class="value">
+                                    Phone :
+                                    <div id="phone-val">
+                                        {{ phone }}
+                                        <span class="edit-button"> Edit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% if allowEdit %}
+                    <div id="aco4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <form class="form">
+                                <div class="">
+                                    <input type="number" id="phone-no" value="{{ phone }}" class="fifty form-control" placeholder="phone" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#aco5">
+                                <div class="value">
+                                    Department/Specialization :
+                                    <div id="spec-val">
+                                        {% if specialization is not null %}
+                                            {{ specialization }}
+                                        {% else %}
+                                            Unspecified
+                                        {% endif %}
+                                        <span class="edit-button"> Edit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% if allowEdit %}
+                        <div id="aco5" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form class="form">
+                                    <select id="specialization-option" class="form-control">
+                                        <option>Unspecified</option>
+                                        {% for each in allSpecialization %}
+                                            {% if specialization == each.specialization %}
+                                                {% set selected = 'selected' %}
+                                            {% else %}
+                                                {% set selected = '' %}
+                                            {% endif %}
+                                            <option {{ selected }} value="{{ each.id }}">{{ each.specialization }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#aco6">
+                                <div class="value">
+                                    Institute :
+                                    <idv id="inst-val">
+                                        {% if presentInstitution is not null %}
+                                            {{ presentInstitution }}
+                                        {% else %}
+                                            Unspecified
+                                        {% endif %}
+                                        <span class="edit-button"> Edit</span>
+                                    </idv>
+                                </div>
+                            </div>
+                        </h4>
+                    </div>
+                    {% if allowEdit %}
+                        <div id="aco6" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <form class="form">
+                                    <select class="form-control select2-drop institution-option" style="width:100%;">
+                                        {% for each in allInstitute %}
+                                            {% if presentInstitution == each.name %}
+                                                {% set selected = 'selected' %}
+                                            {% else %}
+                                                {% set selected = '' %}
+                                            {% endif %}
+                                            <option {{ selected }} value="{{ each.id }}">{{ each.name }}, {{ each.city }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <span class="link">Not in the list? <a href="{{ path('add_institute') }}" id="add-new-institute">Click here to add one</a></span>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal fade" id="add-institute-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span>
+                            </button>
+                            <div id="add-institute-form">
+                                <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="ajax loader" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}

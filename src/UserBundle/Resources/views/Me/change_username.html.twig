@@ -1,0 +1,12 @@
+{#{% extends "::base.html.twig" %}#}
+
+{#{% block title %}UserBundle:Me:createUsername{% endblock %}#}
+
+{% block body %}
+    <p>Username help you create a shareable link for your account. (Ex: http://lecturenotes.in/u/your-name)</p>
+    {{ form_start(form) }}
+    https://lecturenotes.in/u/
+    {{ form_widget(form.username, { 'attr':{'placeholder':'Only Username'}}) }}
+    {{ form_errors(form) }}
+    {{ form_end(form) }}
+{% endblock %}

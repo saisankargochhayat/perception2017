@@ -1,0 +1,17 @@
+{% extends '::emailbase.html.twig' %}
+
+
+{% block firstName %}{{ firstName }}{% endblock %}
+
+{% block emailBody %}{% trans %}user.registration.email.welcome.emailBody{% endtrans %}{% endblock %}
+
+{% block actionLink %}
+    <a href="{{ url }}" style="font-size:14px;font-weight:bold;color:white;border:1px solid #21aa13;background:#93da46;padding:5px 10px" target="_blank">
+        {% trans %}user.registration.email.welcome.actionText{% endtrans %}
+    </a>
+{% endblock %}
+
+
+{% block emailAdvisory %}
+    {% trans %}email.advisory.mandatory_email{% endtrans %}
+{% endblock %}

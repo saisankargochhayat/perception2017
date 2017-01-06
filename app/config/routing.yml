@@ -1,0 +1,7 @@
+user_profile:
+    resource: "@UserBundle/Controller/"
+    type:     annotation
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

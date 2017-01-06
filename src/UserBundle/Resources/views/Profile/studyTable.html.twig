@@ -1,0 +1,1246 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {{ profile.user.realName }}
+    {% if profile.presentInstitution is not null %}
+        - {{ profile.presentInstitution.name }}, {{ profile.presentInstitution.city }}
+    {% endif %}
+{% endblock %}
+{% block description %}
+    Find out educational and professional details about {{ profile.user.realName }}.
+{% endblock %}
+{% block keywords %}
+    {{ profile.user.firstName }}, {{ profile.user.lastName }},
+    {% if profile.presentInstitution is not null %}
+        {{ profile.presentInstitution.name }}
+    {% endif %}
+        , profile, notes, uploads
+{% endblock %}
+{% block body %}
+    {% if not allowEdit %}
+        <style>
+            .edit-button{
+                display: none;
+            }
+        </style>
+    {% endif %}
+    <section id="study-table-sub-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 pull-right text-right">
+                    <div class="date ">
+                        <p>{{ "now"|date("jS F Y") }}<br/>
+                            {{ "now"|date("l") }}</p>
+                    </div>
+                    <div class="study-table-options">
+                        {% if allowEdit %}
+                            <h2>My Study Table</h2>
+                        {% else %}
+                            <h2>{{ profile.user.firstName }}'s Study Table</h2>
+                        {% endif %}
+
+                        {#<i class="icon-comment tooltip-1" data-title="Message"><span class="num">5</span></i>#}
+                        {#<i class="icon-bell tooltip-1" data-title="Notification"></i>#}
+                        {#<a href="{{ path('logout') }}" style="color:#000" ><i class="icon-logout tooltip-1" data-title="Logout"></i></a>#}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="lnId">
+                        <div class="ln-id-logo text-center">
+                            <img src="{{ asset('assets/img/logo.png') }}" height="35px" alt="logo" />
+                        </div>
+                        <div class="ln-id-left text-center">
+                            <div class="ln-id-user-img">
+                                <img src="{{ asset(profiles.getAvatar(profile.user)) }}" width="70px" height="70px" style="max-height: 70px; max-width:70px" class="img-circle" alt="{{ profile.user.realName }}" />
+                            </div>
+                            {#<div class="ln-id-batch">#}
+                                {#<b>Batch</b>#}
+                                {#2009-13#}
+                            {#</div>#}
+                        </div>
+                        <div class="ln-id-right">
+                            <div class="ln-id-name">
+                                {{ profile.user.realName }}
+                            </div>
+                            {% if profile.user.role == 7 or profile.user.role == 31 %}
+                                {{ ('user.role.' ~ profile.user.role) | trans }}
+                            {% endif %}
+                            {% if profile.specialization is not null %}
+                            <div class="ln-id-dept">
+                                {{ profile.specialization.name }}
+                            </div>
+                            {% endif %}
+                            {% if profile.presentInstitution is not null %}
+                            <div class="ln-id-inst">
+                                {{ profile.presentInstitution.name }}
+                            </div>
+                            {% endif %}
+                            <div class="ln-id-userid">
+                                LN ID: {{ profile.user.username }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End row -->
+        </div><!-- End container -->
+    </section><!-- End sub-header -->
+
+    <section id="main_content">
+        <div style="margin-bottom: 50px"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!--  Tabs -->
+                    <ul class="nav nav-tabs" id="study-table-nav-tab">
+                        {% if profile.user.role == 7 or profile.user.role == 31 %}
+                            {% set faculty = true %}
+                        {% else %}
+                            {% set faculty = false %}
+                        {% endif %}
+                        {% if faculty %}
+                            {% if allowEdit %}
+                                <li class="active"><a href="#myuploads" id="upload-anchor" data-toggle="tab">My Uploads</a></li>
+                                <li><a href="#profile" data-toggle="tab" id="profile-anchor">My Profile</a></li>
+                                <li><a href="#my-notes" data-toggle="tab" id="subscription-anchor">My Subscriptions</a></li>
+                                <li><a href="#pyqs" data-toggle="tab" id="pyq-anchor">My PYQs</a></li>
+                                {% if myUpload_list is not empty %}
+                                    <li><a href="#comments-on-study-table" data-toggle="tab" id="comments-anchor">Comments on My Uploads</a></li>
+                                {% endif %}
+                            {% else %}
+                                <li class="active"><a href="#myuploads" data-toggle="tab" id="upload-anchor">{{ profile.user.firstName }}'s Uploads</a></li>
+                                <li><a href="#profile" data-toggle="tab" id="profile-anchor">{{ profile.user.firstName }}'s Profile</a></li>
+                                <li><a href="#my-notes" data-toggle="tab" id="subscription-anchor">{{ profile.user.firstName }}'s Subscriptions</a></li>
+                                <li><a href="#pyqs" data-toggle="tab" id="pyq-anchor">{{ profile.user.firstName }}'s PYQs</a></li>
+                            {% endif %}
+                        {% else %}
+                            {% if allowEdit %}
+                                <li class="active"><a href="#my-notes" data-toggle="tab" id="subscription-anchor">My Notes</a></li>
+                                <li><a href="#pyqs" data-toggle="tab" id="pyq-anchor">My PYQs</a></li>
+                                <li><a href="#profile" data-toggle="tab" id="profile-anchor">My Profile</a></li>
+                                <li><a href="#myuploads" data-toggle="tab" id="upload-anchor">My Uploads</a></li>
+                                {% if myUpload_list is not empty %}
+                                    <li><a href="#comments-on-study-table" data-toggle="tab" id="comments-anchor">Comments on My Uploads</a></li>
+                                {% endif %}
+                            {% else %}
+                                <li class="active"><a href="#my-notes" data-toggle="tab" id="subscription-anchor">{{ profile.user.firstName }}'s Subscriptions</a></li>
+                                <li><a href="#pyqs" data-toggle="tab" id="pyq-anchor">{{ profile.user.firstName }}'s PYQs</a></li>
+                                <li><a href="#profile" data-toggle="tab" id="profile-anchor">{{ profile.user.firstName }}'s Profile</a></li>
+                                <li><a href="#myuploads" data-toggle="tab" id="upload-anchor">{{ profile.user.firstName }}'s Uploads</a></li>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade in {% if not faculty %}
+                        active
+                        {% endif %}
+                        " id="my-notes">
+                            {% if allowEdit %}
+                            <div class="col-md-10 col-md-offset-1 text-center">
+                                <form action="{{ path('search') }}" method="get" id="search-form" >
+                                    <div class="input-group" >
+                                        {% if app.user %}
+                                            {% set placeholder = 'Howdy ' ~ app.user.firstName ~ ', '%}
+                                        {% else %}
+                                            {% set placeholder = "" %}
+                                        {% endif %}
+                                        <input type="text" placeholder="{{ placeholder }}Search for Subject and Topic"
+                                               data-placement="top" title="{% trans %}Ln.search.instruction.tooltip{% endtrans %}"
+                                               name="q" id="autocomplete-ajax"  class="form-control style-2 tooltip-1" />
+                                        <span class="input-group-btn">
+                                        <button class="btn" type="submit"><i class="icon-search"></i></button>
+                                        </span>
+                                    </div><!-- /input-group -->
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                            {% endif %}
+                            {% if subscription_list is empty %}
+                                {% if allowEdit %}
+                                    <h3>You haven't added any note to your Study Table. <a href="{{ path('course') }}">Click Here to find one</a></h3>
+                                {% else %}
+                                    <h3>Looks like {{ profile.user.firstName }} have not added any Note to study table yet.</h3>
+                                {% endif %}
+                            {% endif %}
+                            {% for each in subscription_list %}
+                                {% if each.lastReadPage is not null %}
+                                    {% set link = path('topic2', {
+                                                                'id' : each.lastReadPage.topic.id,
+                                                                'subject_name' : each.note.subject.name|slugify }) ~ '?page=' ~ each.lastReadPage.pageNo %}
+                                {% else %}
+                                    {% set link = path('note', {
+                                                                'id' : each.note.id,
+                                                                'subject_name' : each.note.subject.name|slugify }) %}
+                                {% endif %}
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="col-item subject-box">
+                                        {% if allowEdit %}
+                                            <span data-id="{{ each.id }}" class="remove-subscription">x</span>
+                                        {% endif %}
+                                        <div class="photo">
+                                            <a href="{{ link }}" class="box-image">{{ each.note.subject.shortName|upper }}</a>
+                                        </div>
+                                        <div class="cat_row"><a href="#">By {{ each.note.creator.realName }}</a></div>
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="course_info col-md-12 col-sm-12 text-center">
+                                                    <h4><a href="{{ link }}">{{ each.note.subject.name }}</a></h4>
+                                                </div>
+                                            </div>
+                                      </div>
+                                    </div>
+                                </div><!--col-md-4 end -->
+                            {% endfor %}
+                        </div>
+                        <div class="tab-pane fade in {% if faculty %}
+                        active
+                        {% endif %}
+                        " id="myuploads">
+                            <div class="col-md-12">
+
+                                {% if myUpload_list is empty and myPyqSolution_list is empty and allowEdit %}
+                                    <h3>You haven't uploaded any materials yet. To start Uploading a note or a solution <a href="{{ path('temp_upload_document') }}">Click here</a>.</h3>
+                                {% endif %}
+                                {% if myUpload_list is empty and myPyqSolution_list is empty and not allowEdit %}
+                                    <h3>{{ profile.user.realName }} has not yet uploaded any note or solution.</h3>
+                                {% else %}
+                                    <div class="col-md-6 pull-right text-right">
+                                        <h5>Share all Notes on Social Networks</h5>
+                                        {{ render(controller(
+                                        'GlobalBundle:ShareLinkShortener:shareBlockCreate',
+                                        { 'contentType': 'user', 'contentId': profile.user.id|hashify ~ '#myuploads', 'position': 'top'}
+                                        )) }}
+                                    </div>
+                                    <div class="clearfix"></div>
+                                {% endif %}
+<style>
+    .share-container-all{
+        float:right
+    }
+
+</style>
+
+                                {% if myUpload_list is not empty %}
+
+                                    <div class="col-md-6 pull-right text-right">
+                                        <h5>Share all Notes on Social Networks</h5>
+                                        {{ render(controller(
+                                        'GlobalBundle:ShareLinkShortener:shareBlockCreate',
+                                        { 'contentType': 'user', 'contentId': profile.user.id|hashify ~ '#myuploads', 'position': 'top'}
+                                        )) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h3>Notes</h3>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                    {% if allowEdit %}
+
+                                        <div class="panel-group accordion" id="show-note">
+                                            {% set i = 0 %}
+                                            {% for myUpload in myUpload_list %}
+                                                {% if (myUpload.active and myUpload.approved) or allowEdit %}
+                                                    {% set status = "" %}
+                                                    {% if not myUpload.active %}
+                                                        {% set status = status ~ ' Inactive' %}
+                                                    {% endif %}
+                                                    {% if not myUpload.approved %}
+                                                        {% set status = status ~ ' Disapproved' %}
+                                                    {% endif %}
+                                                    {% if status|length == 0 %}
+                                                        {% set status = 'Active' %}
+                                                    {% endif %}
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading display_note_details" data-note-id="{{ myUpload.id }}">
+                                                            <h4 class="panel-title">
+                                                                <a class="accordion-toggle"  data-toggle="collapse" data-parent=".accordion" href="#note{{ i }}" >
+                                                                    {{ myUpload.subject.name}}
+                                                                    <i class="indicator icon-plus pull-right"></i>
+                                                                    <small class="pull-right">Status: {{ status }}</small>
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="note{{ i }}" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <label> Subject:</label>
+                                                                        <a href="{{ path('note',{'id':myUpload.id, 'subject_name':myUpload.subject.name|slugify}) }}">{{ myUpload.subject.name }}</a>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label>Status:</label>
+                                                                        {{ status }}
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label>Subscription: <i class="icon-info-circled tooltip-1" title="Number of users who have subscribed to this note."></i></label>
+                                                                        {{ myUpload.subscriptionCount }}
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label>Pages Read Online:</label>
+                                                                        {{ myUpload.pagesRead }}
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <h6>Your friends need this too. Share it!!!</h6>
+                                                                        {{ render(controller(
+                                                                        'GlobalBundle:ShareLinkShortener:shareBlockCreate',
+                                                                        { 'contentType': 'note', 'contentId': myUpload.id, 'position': 'top'}
+                                                                        )) }}
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        Downloaded <b>{{ myUpload.downloadCount }}</b> times by <b>{{ myUpload.uniqueDownloadCount }}</b> users.
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                                <hr/>
+                                                                <div id="chart_generate_data" class="col-md-12">
+                                                                    <div class="pull-right">
+                                                                        Select a date range to get Download Counts from:<br/>
+                                                                        <label>From:</label><input type="date" class="from_date"/>
+                                                                        <label>To:</label><input type="date" class="to_date"/>
+                                                                        <button type="button"  class="chart_generate_button btn btn-primary">Go</button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                                <div class="chart_parent_div">
+                                                                    <img src="{{ asset('assets/img/ajax-loader2.gif') }}" class="loader-gif" alt="loader"/>
+                                                                    <div id="chart_div1_{{ myUpload.id }}" class="col-md-6">
+                                                                    </div>
+                                                                    <div id="chart_div2_{{ myUpload.id }}" class="col-md-6">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {#show like subscription#}
+                                        {% for each in myUpload_list %}
+                                            {% set link = path('note', {
+                                            'id' : each.id,
+                                            'subject_name' : each.subject.name|slugify }) %}
+                                            {% if each.active and each.approved and not each.deleted %}
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="col-item subject-box">
+                                                        <div class="photo">
+                                                            <a href="{{ link }}" class="box-image">{{ each.subject.shortName|upper }}</a>
+                                                        </div>
+                                                        <div class="cat_row"><a href="#">By {{ each.creator.realName }}</a><span class="pull-right"><i class="icon-download"></i>Download:{{ each.downloadCount }}</span></div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="course_info col-md-12 col-sm-12 text-center">
+                                                                    <h4><a href="{{ link }}">{{ each.subject.name }}</a></h4>
+                                                                </div>
+                                                            </div>
+                                                            {#<div class="separator clearfix">#}
+                                                                {#<p class="btn-add" style="width:100%"><a href="{{ link }}"><i#}
+                                                                                {#class="icon-export-4"></i> Start Reading</a>#}
+                                                                {#</p>#}
+                                                            {#</div>#}
+                                                        </div>
+                                                    </div>
+                                                </div><!--col-md-4 end -->
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endif %}
+                                {% if myPyqSolution_list is not empty %}
+                                    <div class="clearfix"></div>
+                                    <h3>Solutions to Previous year Questions</h3>
+                                    {% if allowEdit %}
+
+                                        <div class="panel-group accordion">
+                                            {% set i = 0 %}
+                                            {% for myPyqSolution in myPyqSolution_list %}
+                                                {% if (myPyqSolution.active and myPyqSolution.approved) or allowEdit %}
+                                                    {% set status = "" %}
+                                                    {% if not myPyqSolution.active %}
+                                                        {% set status = status ~ ' Inactive' %}
+                                                    {% endif %}
+                                                    {% if not myPyqSolution.approved %}
+                                                        {% set status = status ~ ' Disapproved' %}
+                                                    {% endif %}
+                                                    {% if status|length == 0 %}
+                                                        {% set status = 'Active' %}
+                                                    {% endif %}
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading display_solution_details" data-solution-id="{{ myPyqSolution.id }}">
+                                                            <h4 class="panel-title">
+                                                                <a class="accordion-toggle"  data-toggle="collapse" data-parent=".accordion" href="#solution{{ i }}" >
+                                                                    Solution to {{ myPyqSolution.pyqSet.subject.name }} Question of {{ myPyqSolution.pyqSet.yearOfExam.year }}
+                                                                    <i class="indicator icon-plus pull-right"></i>
+                                                                    <small class="pull-right">Status: {{ status }}</small>
+                                                                </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="solution{{ i }}" class="panel-collapse collapse">
+                                                            <div class="panel-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <a href="{{ path('pyq_solution_sets2',{'id':myPyqSolution.id, 'subject_name':myPyqSolution.pyqSet.subject.name|slugify}) }}" class="tooltip-1" title="View in Website">View</a>
+                                                                    </div>
+                                                                    {#<div class="col-md-6">#}
+                                                                       {#<h4>Click here to edit your solution</h4><a href="{{ path('edit_pyq_solution_set',{'id':myPyqSolution.id}) }}">{{ myPyqSolution.pyqSet.subject.name }}</a>#}
+                                                                    {#</div>#}
+                                                                    {#<div class="col-md-6">#}
+                                                                        {#<label>Pages Read Online:</label>#}
+                                                                        {#{{ myPyqSolution.pagesRead }}#}
+                                                                    {#</div>#}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                                {% set i = i + 1 %}
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {#show like subscription#}
+                                        {% for each in myPyqSolution_list %}
+                                            {% set link = path('pyq_solution_sets2', {
+                                            'id' : each.id,
+                                            'subject_name' : each.pyqSet.subject.name|slugify }) %}
+                                            {% if each.active and each.approved and not each.deleted %}
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="col-item subject-box">
+                                                        <div class="photo">
+                                                            <a href="{{ link }}" class="box-image">{{ each.pyqSet.subject.shortName|upper }}</a>
+                                                        </div>
+                                                        <div class="cat_row"><a href="#">By {{ each.creator.realName }}</a><span class="pull-right"><i class="icon-clock"></i>{{ each.pyqSet.yearOfExam.year }}</span></div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="course_info col-md-12 col-sm-12 text-center">
+                                                                    <h4><a href="{{ link }}">{{ each.pyqSet.subject.name }}</a></h4>
+                                                                </div>
+                                                            </div>
+                                                            {#<div class="separator clearfix">#}
+                                                            {#<p class="btn-add" style="width:100%"><a href="{{ link }}"><i#}
+                                                            {#class="icon-export-4"></i> Start Reading</a>#}
+                                                            {#</p>#}
+                                                            {#</div>#}
+                                                        </div>
+                                                    </div>
+                                                </div><!--col-md-4 end -->
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="tab-pane fade in" id="profile" data-csrf="{{ csrf_token('update') }}">
+                            <div class="col-md-3">
+                                <img class="img-circle" width="100%" src="{{ asset(profiles.getAvatar(profile.user)) }}" />
+                                <span id="pic-change" class="edit-button">Edit</span>
+                            </div>
+                            <div class="col-md-9 profile">
+                                <div class="panel-group accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol1">
+                                                    <div class="profile-label">
+                                                        Name
+                                                    </div>
+                                                    <div class="value" id="realname">
+                                                        {{ profile.user.realName }}
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        {% if allowEdit %}
+                                        <div id="lol1" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <form class="form">
+                                                    <input type="text" id="firstName" value="{{ profile.user.firstName }}" class="fifty form-control" placeholder="firstName" />
+                                                    <input type="text" id="lastName" value="{{ profile.user.lastName }}" class="fifty form-control" placeholder="Last Name" />
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div id="username-change" class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol2">
+                                                    <div class="profile-label">
+                                                        Link to Profile
+                                                    </div>
+                                                    <div class="value" id="username-val">
+                                                        {% if profile.user.username|length > 0 %}
+                                                            <a style="line-height: 1;float:left;" href="{{ app.request.schemeAndHttpHost }}/u/{{ profile.user.username }}">{{ app.request.schemeAndHttpHost }}/u/{{ profile.user.username }}</a>
+                                                        {% else %}
+                                                            Unspecified
+                                                        {% endif %}
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        {% if allowEdit %}
+                                        <div id="lol2" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div id="username">
+                                                    <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="loader" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% if allowEdit %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div>
+                                                    <div class="profile-label">
+                                                        Email
+                                                    </div>
+                                                    <div class="value">
+                                                        {{ profile.user.email }}<i class="icon-lock pull-right">Private</i>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if allowEdit %}
+                                        {% if profile.gender == 0 %}
+                                            {% set unspecified = 'active' %}
+                                        {% else %}
+                                            {% set unspecified = 'notActive' %}
+                                        {% endif %}
+                                        {% if profile.gender == 1 %}
+                                            {% set male = 'active' %}
+                                        {% else %}
+                                            {% set male = 'notActive' %}
+                                        {% endif %}
+                                        {% if profile.gender == 2 %}
+                                            {% set female = 'active' %}
+                                        {% else %}
+                                            {% set female = 'notActive' %}
+                                        {% endif %}
+                                        {% if profile.gender == 3 %}
+                                            {% set other = 'active' %}
+                                        {% else %}
+                                            {% set other = 'notActive' %}
+                                        {% endif %}
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <div class="profile-label">
+                                                        Gender
+                                                    </div>
+                                                    <div class="value" id="gender-val">
+                                                        <div class="input-group">
+                                                            <div class="btn-group radioBtn">
+                                                                <a class="btn btn-primary btn-sm {{ unspecified }}" data-toggle="gender" data-value="0">Unspecified</a>
+                                                                <a class="btn btn-primary btn-sm {{ male }}" data-toggle="gender" data-value="1">Male</a>
+                                                                <a class="btn btn-primary btn-sm {{ female }}" data-toggle="gender" data-value="2">Female</a>
+                                                                <a class="btn btn-primary btn-sm {{ other }}" data-toggle="gender" data-value="3">Other</a>
+                                                            </div>
+                                                            <input type="hidden" id="gender"/>
+                                                        </div>
+                                                    </div>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% if allowEdit %}
+                                        {% if profile.user.role == 1 %}
+                                            {% set student = 'active' %}
+                                        {% else %}
+                                            {% set student = 'notActive' %}
+                                        {% endif %}
+                                        {% if profile.user.role == 7 or profile.user.role == 31 %}
+                                            {% set faculty = 'active' %}
+                                        {% else %}
+                                            {% set faculty = 'notActive' %}
+                                        {% endif %}
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <div class="profile-label">
+                                                            Profession
+                                                    </div>
+                                                    <div class="value" id="role-val">
+                                                        <div class="input-group">
+                                                            <div class="btn-group radioBtn">
+                                                                <a class="btn btn-primary btn-sm {{ student }}" data-toggle="profession" data-value="0">Student</a>
+                                                                <a class="btn btn-primary btn-sm {{ faculty }}" data-toggle="profession" data-value="1">Faculty</a>
+                                                            </div>
+                                                            <input type="hidden" id="profession"/>
+                                                        </div>
+                                                    </div>
+                                                 </h4>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% if profile.user.role == 7 or profile.user.role == 31 %}
+                                    {% set style = '' %}
+                                {% else %}
+                                    {% set style = 'style=display:none' %}
+                                {% endif %}
+                                    <div class="panel panel-default" {{ style }} id="designation">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol14">
+                                                    <div class="profile-label">
+                                                        Designation
+                                                    </div>
+                                                    <div class="value" id="designation-val">
+                                                        {% if profile.designation is not empty %}
+                                                            {{ profile.designation }}
+                                                        {% else %}
+                                                            Unspecified
+                                                        {% endif %}
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        {% if allowEdit %}
+                                            <div id="lol14" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <form class="form">
+                                                        <div class="">
+                                                            Add your Designation (Ex. Professor, Asst. Professor. etc.)<i class="icon-info-circled tooltip-1" title="It will be displayed in your profile and uploads."></i>
+                                                            <input type="button" class="btn btn-xs btn-info" id="professor" value="Professor"/>
+                                                            <input type="button" class="btn btn-xs btn-info" id="asst-professor" value="Asst. Professor"/>
+                                                            <input type="text" class="form-control" id="profile-designation" value="{{ profile.designation }}" />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    {% if allowEdit %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol6">
+                                                    <div class="profile-label">
+                                                        Phone
+                                                    </div>
+                                                    <div class="value" id="phone-val">
+                                                        {{ profile.phone }}<i class="icon-lock pull-right tooltip-1" title="Only visible to LectureNotes.in and you">Private</i>
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        <div id="lol6" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <form class="form">
+                                                    <div class="">
+                                                        <input type="number" id="phone-no" name="" value="{{ profile.phone }}" class="fifty form-control" placeholder="phone" />
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol7">
+                                                    <div class="profile-label">
+                                                        Department/Specialization
+                                                    </div>
+                                                    <div class="value" id="spec-val">
+                                                        {% if profile.specialization is not null %}
+                                                            {{ profile.specialization.Name }}
+                                                        {% else %}
+                                                            Unspecified
+                                                        {% endif %}
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        {% if allowEdit %}
+                                        <div id="lol7" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <form class="form">
+                                                    <select id="specialization-option" class="form-control">
+                                                        <option>Unspecified</option>
+                                                        {% for each in allSpecialization %}
+                                                            {% if profile.specialization == each %}
+                                                                {% set selected = 'selected' %}
+                                                            {% else %}
+                                                                {% set selected = '' %}
+                                                            {% endif %}
+                                                            <option {{ selected }} value="{{ each.id }}">{{ each.Name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol8">
+                                                    <div class="profile-label">
+                                                        Institute
+                                                    </div>
+                                                    <div class="value" id="inst-val">
+                                                        {% if profile.presentInstitution is not null %}
+                                                            {{ profile.presentInstitution.Name }}
+                                                        {% else %}
+                                                            Unspecified
+                                                        {% endif %}
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        {% if allowEdit %}
+                                        <div id="lol8" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <form class="form">
+                                                    <select class="form-control institution-option" id="select_institute" style="width:100%;">
+                                                        {% if profile.presentInstitution is not null %}
+                                                            <option value="{{ profile.presentInstitution.id }}">
+                                                                {{ profile.presentInstitution.Name }},
+                                                                {{ profile.presentInstitution.city }}</option>
+                                                        {% else %}
+                                                            <option value="">Select Present Institution</option>
+                                                        {% endif %}
+                                                    </select>
+
+                                                    <span class="link">Not in the list? <a href="{{ path('add_institute') }}" id="add-new-institute">Click here to add one</a></span>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {#//{{ dump(profile.presentInstitution) }}#}
+                                    {% if profile.presentInstitution is not null %}
+                                        {% if profile.presentInstitution.university is not null %}
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol9">
+                                                            <div class="profile-label">
+                                                                University
+                                                            </div>
+                                                            <div class="value">
+                                                                {{ profile.presentInstitution.university.name }}
+                                                            </div>
+                                                        </div>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                    <div class="panel panel-default">
+                                        {% if allowEdit %}
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol11">
+                                                    <div class="profile-label">
+                                                        Date Of Birth
+                                                    </div>
+                                                    <div class="value" id="dob-val">
+                                                        {% if profile.dateOfBirth is not null %}
+                                                            <span class="dob-main">{{ profile.DateOfBirth|date("d-m-Y") }}</span>
+                                                        {% else %}
+                                                            <span class="dob-main">Unspecified</span>
+                                                        {% endif %}
+                                                        <i class="icon-lock pull-right">Private</i>
+                                                        <span class="edit-button"> Edit</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        <div id="lol11" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <label>Date</label>
+                                                <select id="dob-date" class="form-control">
+                                                    <option>Date</option>
+                                                    {% for i in 1..31 %}
+                                                        <option value="{{ i }}" >{{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label>Month</label>
+                                                <select id="dob-month" class="form-control">
+                                                    <option>Month</option>
+                                                    {% for i in 1..12 %}
+                                                        <option value="{{ i }}" >{{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label>Year</label>
+                                                <select id="dob-year" class="form-control">
+                                                    <option>Year</option>
+                                                    {% for i in 2016..1947 %}
+                                                        <option value="{{ i }}" >{{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <button id="dob-save" type="button", class="btn btn-primary">Save</button>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% if allowEdit %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <div id="password-change" class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#lol10">
+                                                    <div class="profile-label">
+                                                        Password
+                                                    </div>
+                                                    <div class="value">
+                                                        ********
+                                                        <span class="edit-button">Change</span>
+                                                    </div>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        <div id="lol10" class="panel-collapse collapse">
+                                            <div class="panel-body" id="password">
+                                                <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="loader" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <h3>About me
+                                    {% if allowEdit %}
+                                        <small id="profile-about-edit" class="edit-button">Edit</small>
+                                    {% endif %}
+                                </h3>
+                                <p class="profile-about">
+                                {% if profile.about %}
+                                    {{ profile.about }}
+                                {% else %}
+                                    {% if allowEdit %}
+                                        Add few lines about yourself. Let others know about you.
+                                    {% else %}
+                                        {{ profile.user.firstName }} haven't added anything yet.
+                                    {% endif %}
+                                {% endif %}
+                                </p>
+                                <button style="display: none;" class="btn btn-primary" id="profile-about-save">Save</button>
+                            </div>
+                            {#{% if allowEdit %}#}
+                                {#<a href="{{ path('account-settings') }}">Account Settings</a>#}
+                            {#{% endif %}#}
+                        </div><!-- End tab-pane -->
+
+                        <div class="tab-pane fade in" id="pyqs">
+                            {% if subscription_list|length ==0 %}
+                                <h3>No Previous year questions found for your subscription list</h3>
+                            {% else %}
+                                <h3>University Previous Year Questions for subscriptions</h3>
+                            {% endif %}
+
+                            <div class="panel-group accordion">
+                                {% set i = 0 %}
+                                {% for each1 in subscription_list %}
+                                    {% if pyq_list[i] is defined %}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#sub{{ i }}">
+                                                    {{ each1.note.subject.name }}
+                                                <i class="indicator icon-plus pull-right"></i>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="sub{{ i }}" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            {% for each2 in pyq_list[i] %}
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                                    <div class="col-item subject-box">
+                                                        <div class="photo">
+                                                            <a href="{{ path('pyq_sets', {'id' : each2.id, 'subject_name' : each2.subject.name|slugify, 'university': each2.university.shortname|slugify, 'year': each2.yearOfExam.year|slugify}) }}" class="box-image">{{ each2.subject.shortName|upper }}</a>
+                                                        </div>
+                                                        <div class="cat_row"><a href="#">{{ each2.semester.name }}</a> <span class="pull-right">{{ each2.yearOfExam.year }}</span></div>
+                                                        <div class="info">
+                                                            <div class="row">
+                                                                <div class="course_info col-md-12 col-sm-12 text-center">
+                                                                    <h4><a href="{{ path('pyq_sets', {'id' : each2.id, 'subject_name' : each2.subject.name|slugify, 'university': each2.university.shortname|slugify, 'year': each2.yearOfExam.year|slugify}) }}" class="box-image">{{ each2.subject.name | capitalize }}</a></h4>
+                                                                </div>
+                                                            </div>
+                                                            {#<div class="separator clearfix">#}
+                                                                {#<p class="btn-add" style="width:100%"><a href="{{ path('pyq_sets', {'id' : each2.id, 'subject_name' : each2.subject.name|slugify, 'university': each2.university.shortname|slugify, 'year': each2.yearOfExam.year|slugify}) }}" class="box-image"><i#}
+                                                                                {#class="icon-export-4"></i> View PYQ</a>#}
+                                                                {#</p>#}
+                                                            {#</div>#}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                    {% endif %}
+                                    {% set i = i + 1 %}
+                                {% endfor %}
+                            </div>
+                        </div><!-- End tab-pane -->
+                        {% if myUpload_list is not empty %}
+                            <style>
+                                .comments-container {
+                                    margin: 0 0 auto 0;
+                                    width: auto;
+                                }
+                                .comments-list .comment-box {
+                                    width: 500px;
+                                }
+                                @media only screen and (max-width: 766px){
+                                    .comments-container {
+                                       width: 100%;
+                                    }
+                                    .comments-list .comment-box {
+                                        width: 340px;
+                                    }
+                                }
+                                @media only screen and (max-width: 480px) {
+                                    .comments-list .comment-box {
+                                        width: 80%;
+                                    }
+                                }
+                            </style>
+                            <div class="tab-pane fade in" id="comments-on-study-table">
+                                <div class="panel-group accordion">
+                            {% set i = 0 %}
+                            {% for each in myUpload_list %}
+                                {% set status = "" %}
+                                {% if not each.active %}
+                                    {% set status = status ~ ' Inactive' %}
+                                {% endif %}
+                                {% if not each.approved %}
+                                    {% set status = status ~ ' Disapproved' %}
+                                {% endif %}
+                                {% if status|length == 0 %}
+                                    {% set status = 'Active' %}
+                                {% endif %}
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title note-comment" data-note-id="{{ each.id }}">
+                                                    <a class="accordion-toggle" data-toggle="collapse" data-parent=".accordion" href="#comments{{ i }}">
+                                                        {{ each.subject.name }}
+                                                        <i class="indicator icon-plus pull-right"></i>
+                                                        <small class="pull-right">Status: {{ status }}</small>
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="comments{{ i }}" class="panel-collapse collapse">
+                                                <div class="panel-body comments-on-study-table-container">
+                                                    <img src="{{ asset('assets/img/ajax-loader2.gif') }}" class="loader-gif" alt="loader"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% set i = i + 1 %}
+                            {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>   <!-- End content-->
+                </div><!-- End col-md-12-->
+            </div><!-- End row-->
+        </div><!-- End container -->
+    </section><!-- End main_content-->
+    <!-- modal to change picture -->
+    <div class="modal fade" id="pic-change-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span>
+                    </button>
+                    <div class="dp">
+                        <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="ajax loader" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal to change picture -->
+    <!-- modal to change picture -->
+    <div class="modal fade" id="add-institute-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span>
+                    </button>
+                    <div id="add-institute-form">
+                        <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="ajax loader" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal to change picture -->
+{% endblock %}
+{% block jsVariables %}
+    {{ parent() }}
+    <script>
+        //override the user data for this page only for admins
+        {% if allowEdit %}
+            window.lecturenotes.user.hashId = "{{ profile.user.hashId }}";
+        {% endif %}
+    </script>
+
+    {# This script block is for plotting graph#}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"> </script>
+    <script type="text/javascript">
+        //override the user data for this page only for admins
+        window.lecturenotes.user.hashId = "{{ profile.user.hashId }}";
+        var line_graph_data = 0;
+        var pie_graph_data = 0;
+        $(".display_note_details").click(function(e){
+            e.preventDefault();
+            var temp = $(this).next();
+            var noteId = $(this).attr('data-note-id');
+            var data = {'noteId':noteId};
+            $.ajax({
+                url: '{{ path('weekly_download_details') }}',
+                data: data,
+                method: 'POST',
+                success: function(data) {
+                    temp.find('.loader-gif').hide();
+                /* section is for line chart to see each day download*/
+                    lineChart(data.download);
+                /* section end*/
+
+                /* section is for pie chart of institute wise download */
+                    pieChart(data.totalDownload, data.eachInstituteDownload);
+                 /* section end */
+                    google.charts.setOnLoadCallback(drawChart(noteId));
+                }
+            });
+        });
+        $(".chart_generate_button").click(function(e){
+           e.preventDefault();
+            var temp = $(this);
+            $(this).html('<img src="{{ asset('assets/img/ajax-loader2.gif') }}" >');
+            var noteId = $(this).closest('.panel-default').find('.display_note_details').attr('data-note-id');
+            var fromDate = $(this).siblings('.from_date').val();
+            var toDate = $(this).siblings('.to_date').val();
+
+            if(fromDate == ""){
+                notify("error", "Enter a Date to show data From");
+                return false;
+            }
+            if(toDate == ""){
+                notify("error", "Enter a Date to show data To");
+                return false;
+            }
+            var data = {'noteId':noteId, 'fromDate':fromDate, 'toDate':toDate};
+
+//            console.log(data);
+            $.ajax({
+                url: '{{ path('weekly_download_details') }}',
+                data: data,
+                method: 'POST',
+                success: function(data){
+                    lineChart(data.download);
+                    google.charts.setOnLoadCallback(drawChart(noteId));
+                    temp.html('Go');
+                }
+            });
+        });
+        google.charts.load("current", {packages: ["corechart"]});
+
+        function drawChart(noteId){
+            var note = noteId;
+            data = line_graph_data;
+            data1 = pie_graph_data;
+            var options = {
+                title:  'Downloads Count',
+                hAxis: {title: "Dates", viewWindow: {
+                    min: 0
+                }},
+                vAxis: {title: "Downloads", viewWindow: {
+                    min: 0
+                }},
+                curveType: 'function',
+                pointSize:  10,
+                'width':    500,
+                'height':   500,
+                chartArea: {
+                    left: '20px',
+                    top: '20px'
+                }
+            };
+            var options1 = {
+                title: 'Downloads from Institute',
+                'width': 530,
+                'height':500,
+                is3D:   true,
+                chartArea: {
+                    left: '0px',
+                    top: '20px'
+                }
+            };
+//            document.getElementById('chart_div1_'+note).html('test'+note);
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div1_'+note));
+            var chart1 = new google.visualization.PieChart(document.getElementById('chart_div2_'+note));
+            chart.draw(data, options);
+            chart1.draw(data1, options1);
+        }
+        function lineChart(download){
+            var downloadDetails = JSON.parse(download);
+            var day = [];
+            for(var i=1; i <= downloadDetails.length; i++){
+                day[i] = downloadDetails[i-1];
+            }
+
+            var dates = [];
+            var downloads = [];
+            var eachDate = [];
+            for( i = 1; i < day.length; i++){
+                dates[i] = day[i].theDate;
+                downloads[i] = parseInt(day[i].download);
+                eachDate[i] = i-1;
+            }
+            line_graph_data = new google.visualization.DataTable();
+            line_graph_data.addColumn('string', 'Dates');
+            line_graph_data.addColumn('number', 'Downloads');
+
+            for(i = 1; i < day.length; i++) {
+                line_graph_data.addRow([dates[i], downloads[i]]);
+            }
+        }
+
+        function pieChart(totalDownload, eachInstituteDownload){
+
+            var total = JSON.parse(totalDownload);
+            var totalNoteDownload = [];
+            for( var k=0; k < total.length; k++){
+                totalNoteDownload[k] = total[k];
+
+            }
+            var instituteDownload = JSON.parse(eachInstituteDownload);
+            var institute = [];
+            for(var j=1; j<= instituteDownload.length; j++){
+                institute[j] = instituteDownload[j-1];
+            }
+            var instituteName = [];
+            var download = [];
+            var eachInstituteNumber = [];
+            var sumOfDownload = 0;
+            var city = [];
+            for(j=1; j< institute.length; j++){
+                instituteName[j] = institute[j].name;
+                city[j] = institute[j].city;
+                download[j] = parseInt(institute[j].downloads_from_institute);
+                sumOfDownload += download[j];
+                eachInstituteNumber[j] = j-1;
+            }
+            var other = totalNoteDownload[0].totalDownload - sumOfDownload;
+
+            pie_graph_data = new google.visualization.DataTable();
+            pie_graph_data.addColumn('string', 'Institute');
+            pie_graph_data.addColumn('number', 'Download');
+
+            for(j = 1; j< institute.length; j++){
+                pie_graph_data.addRow([instituteName[j]+', '+city[j], download[j]]);
+            }
+            pie_graph_data.addRow(['others', other]);
+        }
+
+        $("#study-table-nav-tab a").click(function(){
+            var hash = $(this).attr('href');
+            window.location.hash = hash;
+            window.history.pushState('', '', hash);
+        });
+        //jumping to tab if #fragmant exists
+        $(document).ready(function(){
+//            console.log(window.location.hash);
+            switch(window.location.hash){
+                case "#profile":
+                    $("#profile-anchor").tab('show');
+                    break;
+                case "#pyqs":
+                    $("#pyq-anchor").tab('show');
+                    break;
+                case "#my-notes":
+                    $("#subscription-anchor").tab('show');
+                    break;
+                case "#myuploads":
+                    $("#upload-anchor").tab('show');
+                    break;
+                case "#comments-on-study-table":
+                    $("#comments-anchor").tab('show');
+                    break;
+                default:
+                    break;
+            }
+
+        });
+    </script>
+    <script>
+        $(".note-comment").click(function(){
+            var temp = $(this);
+            var noteId = temp.data('note-id');
+            var data = {'noteId' : noteId};
+            window.lecturenotes.content_type = 'note';
+            window.lecturenotes.content_id = noteId;
+
+            var url = "{{ path('all_comments_on_note', {'noteId':'noteId'}) }}" + '?_partial=true';
+            url = url.replace('noteId', noteId);
+            jQuery.ajax({
+                url: url,
+                type: "POST",
+                data: data,
+                async: true,
+                success: function(data){
+                    temp.closest('.panel').find('.comments-on-study-table-container').html(data);
+                },
+                error: function(data){
+                    notify(data.status, data.message);
+                }
+            });
+
+        });
+
+        $("#select_institute").select2({
+            minimumInputLength: 2,
+//            tags: [],
+            ajax: {
+
+                url: "{{ path('select_institute_ajax') }}",
+                dataType: 'json',
+                type: "GET",
+//                quietMillis: 5000,
+                delay: 500,
+                cache: true,
+                data: function (term) {
+                  //  console.log(term);
+                    return  {
+                        q: term.term
+                    };
+                },
+                processResults: function (data) {
+                   // console.log(data);
+                    return {
+                        results: data.institute_list,
+                    };
+                }
+            }
+        });
+        $(function(){
+            $("#uploaded-note").attr('checked', 'checked');
+            $("#show-pyq-solution").hide();
+        });
+        $("#uploaded-pyq-solution").click(function(){
+            $("#show-pyq-solution").show();
+            $("#show-note").hide();
+        });
+        $("#uploaded-note").click(function(){
+            $("#show-note").show();
+            $("#show-pyq-solution").hide();
+        });
+    </script>
+{% endblock %}

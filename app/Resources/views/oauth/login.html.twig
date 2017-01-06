@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}UserBundle:OAuthLogin:login{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the OAuthLogin:login page</h1>
+    <pre>
+        {{ code }}
+    </pre>
+    <pre>
+        {{ token }}
+    </pre>
+    <pre>
+        {{ response }}
+    </pre>
+{% endblock %}

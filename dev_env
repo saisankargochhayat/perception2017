@@ -1,0 +1,17 @@
+#!/bin/bash
+case $1 in
+    "start" )
+    docker start perception-dev-mysql;;
+    "pma" )
+    docker start perception-dev-pma;;
+    "stop" )
+    docker stop perception-dev-mysql perception-dev-pma;;
+    "init" )
+    docker create --name perception-dev-mysql    -e MYSQL_DATABASE=perception_v1 -e MYSQL_USER=perception -e MYSQL_PASSWORD=perception -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql
+    docker create --name perception-dev-pma   -e PMA_ARBITRARY=1 --link perception-dev-mysql:db -p 9000:80 phpmyadmin/phpmyadmin;;
+   "destroy" )
+   docker rm -f perception-dev-mysql perception-dev-pma;;
+   "sqlconsole" )
+   mysql -h 127.0.0.1 -P 3306 -u root -proot perception_v1;;
+esac
+

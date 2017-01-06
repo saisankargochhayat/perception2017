@@ -1,0 +1,31 @@
+{#{% extends "::base.html.twig" %}#}
+{% block body %}
+    <div style="height: 500px; min-height: 500px;">
+        <h4>Complete your profile to help us display subjects relevant to you.</h4>
+        {{ form_start(form, {'allow_extra_fields': true}) }}
+        {{ form_end(form) }}
+        <input class="btn btn-primary" type="button" id="profile-complete-submit" value="Save" />
+        <span class="link">Not in the list? <a href="{{ path('add_institute') }}" id="add-new-institute">Click here to add one</a></span>
+        <!-- modal to change picture -->
+        <div class="modal fade" id="add-institute-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">X</span><span class="sr-only">Close</span>
+                        </button>
+                        <div id="add-institute-form">
+                            <img src="{{ asset('assets/img/ajax-loader2.gif') }}" alt="ajax loader" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- modal to change picture -->
+    </div>
+    <script>
+//        $(document).ready(function(){
+//            $('.select2-drop').select2({allowClear: true});
+//        })
+
+    </script>
+{% endblock %}

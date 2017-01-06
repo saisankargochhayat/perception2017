@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ 'uploads/avatars/' ~ profile.avatar }}
+    <h1><img src="{{ asset('uploads/avatars/' ~ profile.avatar ) }}" /> {{ profile.user.realName }}</h1>
+
+    {% if allow_edit %}
+        <a href="{{ edit_link }}">Edit</a>
+    {% endif %}
+    {#{{ dump(app.user.id) }}#}
+    <table>
+        <tbody>
+            <tr>
+                <th>Gender</th>
+                <td>{{ ('user.gender.' ~ profile.gender) | trans }}</td>
+            </tr>
+            <tr>
+                <th>Role</th>
+                <td>{{ ('user.role.' ~ profile.user.role) | trans }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ profile.phone }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ profile.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ profile.state }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ profile.country }}</td>
+            </tr>
+            <tr>
+                <th>Present institution</th>
+                <td>{{ profile.presentInstitution }}</td>
+            </tr>
+            <tr>
+                <th>Specialization</th>
+                <td>{{ profile.specialization }}</td>
+            </tr>
+
+            <tr>
+                <th>Course</th>
+                <td>{{ profile.course }}</td>
+            </tr>
+            <tr>
+                <th>Batch</th>
+                <td>{{ profile.batch }}</td>
+            </tr>
+            <tr>
+                <th>Date of birth</th>
+                <td>{{ profile.DateOfBirth|date("d-m-Y") }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

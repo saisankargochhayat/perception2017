@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>File</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ file.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ file.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ file.description }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ file.path }}</td>
+            </tr>
+            <tr>
+                <th>Createdby</th>
+                <td>{{ file.createdBy }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if file.createdAt %}{{ file.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if file.updatedAt %}{{ file.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_file_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_file_edit', { 'id': file.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

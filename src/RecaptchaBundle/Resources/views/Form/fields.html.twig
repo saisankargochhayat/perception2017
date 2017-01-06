@@ -1,0 +1,46 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block form_label %}
+    {% if 'recaptcha' in id %}
+        {% set label_attr = label_attr|merge({'for': 'recaptcha_response_field','style':'display:none'}) %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block recaptcha_widget %}
+    {% spaceless %}
+        <script type="text/javascript"
+                src="{{ form.vars.url_api }}"
+                {% if attr.widget_options.defer is defined and attr.widget_options.defer %}defer{% endif %}
+                {% if attr.widget_options.async is defined and attr.widget_options.async %}async{% endif %}
+        ></script>
+        <div class="g-recaptcha" data-theme="{{ attr.widget_options.theme }}"
+             data-size="{{ attr.widget_options.size }}"
+             data-sitekey="{{ form.vars.public_key }}"
+                {% if attr.widget_options.expiredCallback is defined %}
+             data-expired-callback="{{ attr.widget_options.expiredCallback }}"
+                {% endif %}>
+        </div>
+        <noscript>
+            <div style="width: 302px; height: 352px;">
+                <div style="width: 302px; height: 352px; position: relative;">
+                    <div style="width: 302px; height: 352px; position: absolute;">
+                        <iframe src="https://www.google.com/recaptcha/api/fallback?k={{ form.vars.public_key }}"
+                                frameborder="0" scrolling="no"
+                                style="width: 302px; height:352px; border-style: none;"
+                        >
+                        </iframe>
+                    </div>
+                    <div style="width: 250px; height: 80px; position: absolute; border-style: none; bottom: 21px; left: 25px; margin: 0; padding: 0; right: 25px;">
+                            <textarea id="g-recaptcha-response" name="g-recaptcha-response"
+                                      class="g-recaptcha-response"
+                                      style="width: 250px; height: 80px; border: 1px solid #c1c1c1; margin: 0; padding: 0; resize: none;"
+                            >
+                            </textarea>
+                    </div>
+                </div>
+            </div>
+        </noscript>
+    {% endspaceless %}
+{% endblock %}
