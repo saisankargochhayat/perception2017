@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * File
  *
@@ -24,8 +24,8 @@ class Image
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
@@ -39,13 +39,13 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255, unique=true)
+     * @ORM\Column(name="path", type="string", length=255, unique=true, nullable=false)
      */
     private $path;
 
     /**
      * @var User
-     *
+     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      */
     private $createdBy;
@@ -59,7 +59,7 @@ class Image
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
+     * @Assert\Image(maxSize="5M")
      * @Vich\UploadableField(mapping="upload_file", fileNameProperty="name")
      *
      * @var File

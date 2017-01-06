@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Event
@@ -26,14 +27,14 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     * @Assert\Regex("/[A-Za-z0-9-]+/")
+     * @ORM\Column(name="slug", type="string", length=255, unique=true, nullable=false)
      */
     private $slug;
 
@@ -47,7 +48,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=false)
      */
     private $content;
 
@@ -76,27 +77,28 @@ class Event
      * @var \DateTime
      *
      * @ORM\Column(name="time", type="datetime")
+     * @Assert\Range(min="31 January 2017 09:00", max="2 February 2017 08:00")
      */
     private $time;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="venue", type="string", length=255)
+     * @ORM\Column(name="venue", type="string", length=255, nullable=false)
      */
     private $venue;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="team_event", type="boolean")
+     * @ORM\Column(name="team_event", type="boolean", nullable=false)
      */
     private $teamEvent;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="price", type="float")
+     * @Assert\Currency()
+     * @ORM\Column(name="price", type="float", nullable=false)
      */
     private $price;
 
