@@ -1,10 +1,5 @@
 <?php
 /**
- * Copyright (c) 2016. Lecturenotes.in
- * Proprietary and confidential
- */
-
-/**
  * Created by PhpStorm.
  * User: amitosh
  * Date: 4/6/16

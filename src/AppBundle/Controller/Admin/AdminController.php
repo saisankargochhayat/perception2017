@@ -5,12 +5,13 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Route("admin")
  */
-class AdminControllerController extends Controller
+class AdminController extends Controller
 {
     /**
      * Lists all event entities.

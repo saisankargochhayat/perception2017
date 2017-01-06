@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright (c) 2016. Lecturenotes.in
- * Proprietary and confidential
- */
-
 namespace UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;

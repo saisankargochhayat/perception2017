@@ -1,0 +1,10 @@
+services:
+    user_mailer:
+        class: UserBundle\Service\UserMailer
+        arguments: ["@mailer","@translator", "@router", "@templating", "%mail_sender_host%", "%mail_sender_name%"]
+        lazy: true
+
+    user_manager:
+        class: UserBundle\Service\UserManager
+        arguments: ["@doctrine.orm.entity_manager", "@user_mailer"]
+        lazy: true

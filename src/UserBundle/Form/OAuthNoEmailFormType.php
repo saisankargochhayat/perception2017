@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sibananda
- * Date: 13-11-2016
- * Time: 12:43
- */
-
 namespace UserBundle\Form;
 
 

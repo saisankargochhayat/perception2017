@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright (c) 2016. Lecturenotes.in
- * Proprietary and confidential
- */
-
 namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -49,27 +44,7 @@ class ResetPasswordController extends Controller
                 $em->persist($user);
                 $em->flush();
 
-                $message = \Swift_Message::newInstance($this->get('translator')
-                                                            ->trans('user.password.reset.email.subject'))
-                                         ->setFrom([$this->getParameter('mail_security_events_sender') => $this->getParameter('mail_security_events_sender_name')])
-                                         ->setTo($user->getEmail())
-                                         ->setBody(
-                                            $this->renderView(
-                                                'UserBundle:ResetPassword:reset_password_verification_email.html.twig',
-                                                [
-                                                    'firstName' => $user->getFirstName(),
-                                                    'email' => $user->getEmail(),
-                                                    'username' => $user->getUsername(),
-                                                    'url' => $this->generateUrl(
-                                                        'account_reset_password',
-                                                        ['key' => $user->getVerificationToken()],
-                                                        UrlGeneratorInterface::ABSOLUTE_URL
-                                                    )
-                                                ]
-                                            ),
-                                            'text/html'
-                                        );
-                $this->get('mailer')->send($message);
+                $this->get('user_mailer')->sendPasswordResetRequestEmail($user);
 
                 $this->addFlash('success', 'user.password.reset.form.acknowledge');
                 return $this->redirectToRoute('login');

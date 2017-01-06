@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright (c) 2016. Lecturenotes.in
- * Proprietary and confidential
- */
-
 namespace UserBundle\Controller;
 
 use Curl\Curl;
@@ -12,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -24,7 +20,7 @@ use UserBundle\Security\Token\OAuthToken;
  *
  * @package UserBundle\Controller
  *
- * @Route("/account/oauth_login")
+ * @Route("/account/login")
  */
 class OAuthLoginController extends Controller
 {
@@ -328,7 +324,7 @@ class OAuthLoginController extends Controller
      * @Route("/google_login_callback", name="login_google_callback")
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function googleLoginCallbackAction(Request $request)
     {
@@ -348,20 +344,12 @@ class OAuthLoginController extends Controller
                 'grant_type'    => 'authorization_code'
             ]);
 
-            //$res = JSON::parse($response, true);
-
-
             if (isset($response->error_description)) {
-                return $this->render('UserBundle:OAuthLogin:error.html.twig', [
-                    'error' => $response->error_description
-                ])
-                            ->setStatusCode(Response::HTTP_BAD_REQUEST);
+                throw new BadRequestHttpException($response->error_description);
             }
             if (isset($response->error)) {
-                return $this->render('UserBundle:OAuthLogin:error.html.twig', [
-                    'error' => isset($response->error->message) ? $response->error->message : $response->error
-                ])
-                            ->setStatusCode(Response::HTTP_BAD_REQUEST);
+                $error = isset($response->error->message) ? $response->error->message : $response->error;
+                throw new BadRequestHttpException($response->error_description);
             }
 
             if (!isset($response->access_token)) {
@@ -437,81 +425,38 @@ class OAuthLoginController extends Controller
             $profile = $this->getDoctrine()
                  ->getRepository('UserBundle:Profile')
                  ->createOrUpdateProfileFromData($user, $profileData);
-
-            if (is_null($profile->getAvatar()) && isset($data->picture)) {
-                $picture = $curl->get($data->picture);
-                $filename = md5(uniqid()) . '.jpg';
-
-                $dest = $this->getParameter('root_dir') . $this->getParameter('avatar_dir') . DIRECTORY_SEPARATOR
-                        . substr($filename, 0, 1) . DIRECTORY_SEPARATOR
-                        . substr($filename, 0, 2) . DIRECTORY_SEPARATOR
-                        . $filename;
-
-                $this->get('global.image_transformer')
-                     ->resize($picture, 400, 400, [
-                         'raw_input'   => true,
-                         'output_file' => $dest,
-                         'return'      => false,
-                         'resize_mode' => 'fixed_canvas'
-                     ]);
-
-                $profile->setAvatar($filename);
-
-                $em = $this->getDoctrine()
-                           ->getManager();
-                $em->persist($profile);
-                $em->flush();            }
             
             if ($created) {
-                $message = \Swift_Message::newInstance($this->get('translator')
-                                                            ->trans('user.registration.email.welcome.subject'))
-                                         ->setFrom([$this->getParameter('mail_security_events_sender') => $this->getParameter('mail_security_events_sender_name')])
-                                         ->setTo($user->getEmail())
-                                         ->setBody(
-                                             $this->renderView(
-                                                 'UserBundle:Registration:registration_welcome.html.twig',
-                                                 [
-                                                     'real_name' => $user->getRealName(),
-                                                     'email'     => $user->getEmail(),
-                                                     'username'  => $user->getUsername(),
-                                                     //todo: add study table url
-                                                     //                                'study_table_url' => $this->generateUrl(
-                                                     //                                    'account_registration_verify',
-                                                     //                                    ['key' => $user->getVerificationToken()], UrlGeneratorInterface::ABSOLUTE_URL
-                                                     //                                ),
-                                                 ]
-                                             ),
-                                             'text/html'
-                                         );
-
-                //todo: add a plain text email
-                $this->get('mailer')
-                     ->send($message);
+                $this->get('user_mailer')->sendWelcomeEmail($user);
             }
 
-            $token = new OAuthToken($user, 'google', 'main', $user->getRoles());
-            $token->setAuthenticated(true);
-            $this->get("security.token_storage")
-                 ->setToken($token); //now the user is logged in
+            return $this->oAuthLogin($request,$response,'google', $user);
 
-            //now dispatch the login event
-            $request = $this->get("request");
-            $event = new InteractiveLoginEvent($request, $token);
-            $this->get("event_dispatcher")
-                 ->dispatch("security.interactive_login", $event);
-
-            $request->getSession()->remove('oauth_data');
-
-
-            $response = $this->redirect($this->getRedirect($request));
-
-            if ($created) {
-                $response->headers->setCookie(new Cookie('register_success', true, 0, '/', null, false, false));
-            }
-
-            return $response;
         } else {
             throw $this->createAccessDeniedException();
         }
+    }
+
+    private function oAuthLogin(Request $request, Response $response, string $provider, User $user) {
+        $token = new OAuthToken($user, 'google', 'main', $user->getRoles());
+        $token->setAuthenticated(true);
+        $this->get("security.token_storage")
+            ->setToken($token); //now the user is logged in
+
+        //now dispatch the login event
+        $event = new InteractiveLoginEvent($request, $token);
+        $this->get("event_dispatcher")
+            ->dispatch("security.interactive_login", $event);
+
+        $request->getSession()->remove('oauth_data');
+
+
+        $response = $this->redirect($this->getRedirect($request));
+
+        if ($created) {
+            $response->headers->setCookie(new Cookie('register_success', true, 0, '/', null, false, false));
+        }
+
+        return $response;
     }
 }

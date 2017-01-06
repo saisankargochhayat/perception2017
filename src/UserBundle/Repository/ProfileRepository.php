@@ -42,8 +42,8 @@ class ProfileRepository extends EntityRepository
 //                $id = -1;
         return $this->getEntityManager()
                     ->createQuery('
-        SELECT u, p FROM UserBundle:User u JOIN UserBundle:Profile p WITH
-        u.id = p.id WHERE u.id = :id
+                      SELECT u, p FROM UserBundle:User u JOIN UserBundle:Profile p WITH
+                      u.id = p.id WHERE u.id = :id
         ')
                     ->setParameter('id', $id)
                     ->getScalarResult();
@@ -80,15 +80,6 @@ class ProfileRepository extends EntityRepository
 
         if (key_exists('gender', $data) && $profile->getGender() == Profile::GENDER_UNSPECIFIED)
             $profile->setBatch($this->strGenderToIntGender($data['gender']));
-
-        if (key_exists('fb_link', $data))
-            $profile->setFbLink($data['fb_link']);
-
-        if (key_exists('google_link', $data))
-            $profile->setGoogleLink($data['google_link']);
-
-        if (key_exists('linked_in_link', $data))
-            $profile->setLinkedInLink($data['linked_in_link']);
 
         $this->getEntityManager()->persist($profile);
         $this->getEntityManager()->flush();
@@ -129,35 +120,10 @@ class ProfileRepository extends EntityRepository
 
         $profile->setUser($user);
 
-        if (key_exists('avatar', $data))
-            $profile->setAvatar($data['avatar']);
         if (key_exists('gender', $data))
             $profile->setGender($data['gender']);
-        if (key_exists('phone', $data))
-            $profile->setPhone($data['phone']);
-        if (key_exists('city', $data))
-            $profile->setCity($data['city']);
-        if (key_exists('state', $data))
-            $profile->setState($data['state']);
-        if (key_exists('country', $data))
-            $profile->setCountry($data['country']);
-        if (key_exists('present_institution', $data))
-            $profile->setPresentInstitution($data['present_institution']);
-        if (key_exists('course', $data))
-            $profile->setCourse($data['course']);
-        if (key_exists('specialization', $data))
-            $profile->setSpecialization($data['specialization']);
-        if (key_exists('batch', $data))
-            $profile->setBatch($data['batch']);
-        if (key_exists('fb_link', $data))
-            $profile->setFbLink($data['fb_link']);
-        if (key_exists('google_link', $data))
-            $profile->setGoogleLink($data['google_link']);
-        if (key_exists('linked_in_link', $data))
-            $profile->setLinkedInLink($data['linked_in_link']);
 
         $this->getEntityManager()->persist($profile);
         $this->getEntityManager()->flush();
-
     }
 }

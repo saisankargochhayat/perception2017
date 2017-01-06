@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright (c) 2016. Lecturenotes.in
- * Proprietary and confidential
- */
-
 namespace UserBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -43,7 +38,7 @@ class LoginController extends Controller
             }
         }
 
-        return $this->render('login/login',
+        return $this->render('login/login.html.twig',
                              [
                                  'last_username' => $lastUsername,
                                  'error'         => $error,
