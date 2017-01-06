@@ -96,7 +96,7 @@ class Event
     /**
      * @var int
      *
-     * @ORM\Column(name="price", type="smallint")
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 

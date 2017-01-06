@@ -1,3 +1,6 @@
+# Backuo files
+*~
+
 /app/config/parameters.yml
 /build/
 /phpunit.xml
