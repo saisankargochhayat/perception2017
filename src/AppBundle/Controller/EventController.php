@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Event;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -51,32 +52,46 @@ class EventController extends Controller
      * Registers for an event.
      *
      * @Route("/{id}/register", name="event_register")
-     * @Method("GET")
+     * @Method("POST")
+     * @Security("'ROLE_USER'")
      * @param Event $event
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function registerAction(Event $event)
     {
-        return $this->render('event/show.html.twig', array(
-            'event' => $event,
-            'registered' => true
-        ));
+        if($event->isTeamEvent()) {
+            $this->addFlash('error','Only teams can register for a team event');
+        } else if($this->get('event_manager')->isRegistered($event,$this->getUser())) {
+            $this->addFlash('info','You have already registered for this event');
+        } else {
+            $this->get('event_manager')->registerUser($event, $this->getUser());
+            $this->addFlash('success','You have successfully registered for this event');
+        }
+
+        return $this->redirectToRoute('event_show', $event->getId());
     }
 
     /**
      * Unregister for an event.
      *
      * @Route("/{id}/unregister", name="event_unregister")
-     * @Method("GET")
+     * @Method("POST")
+     * @Security("'ROLE_USER'")
      * @param Event $event
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function unregisterAction(Event $event)
     {
-        return $this->render('event/show.html.twig', array(
-            'event' => $event,
-            'registered' => false
-        ));
+        if($event->isTeamEvent()) {
+            $this->addFlash('error','Only teams can register for a team event');
+        } else if(!$this->get('event_manager')->isRegistered($event,$this->getUser())) {
+            $this->addFlash('info','You have not registered for this event');
+        } else {
+            $this->get('event_manager')->registerUser($event, $this->getUser());
+            $this->addFlash('success','You have successfully revoked your registration for this event');
+        }
+
+        return $this->redirectToRoute('event_show', $event->getId());
     }
 
 }

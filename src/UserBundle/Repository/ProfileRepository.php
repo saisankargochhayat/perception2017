@@ -1,9 +1,4 @@
 <?php
-/**
- * Copyright (c) 2016. Lecturenotes.in
- * Proprietary and confidential
- */
-
 namespace UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
@@ -18,21 +13,6 @@ use UserBundle\Entity\User;
  */
 class ProfileRepository extends EntityRepository
 {
-    public function getProfileByUsernameOrHashId($username, $id)
-    {
-
-//        SELECT * FROM `profile` AS `p` JOIN `user` AS `u`
-//        ON (p.id = u.profile_id AND (u.id = 111 OR u.email = 'amitosh@example.com'))
-//            if(is_null($id))
-//                $id = -1;
-        return $this->createQueryBuilder('p')
-            ->innerJoin('p.user', 'u', 'WITH', 'u.username = :user OR u.id = :id')
-            ->setParameter('user', $username)
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
-
     public function getProfileByIdAsArray($id)
     {
 
@@ -60,26 +40,8 @@ class ProfileRepository extends EntityRepository
 
         //do not replace data ??
 
-        if (key_exists('avatar', $data) && is_null($profile->getAvatar()))
-            $profile->setAvatar($data['avatar']);
-
-        if (key_exists('phone', $data) && is_null($profile->getPhone()))
-            $profile->setPhone($data['phone']);
-
-        if (key_exists('city', $data) && is_null($profile->getCity()))
-            $profile->setCity($data['city']);
-
-        if (key_exists('state', $data) && is_null($profile->getState()))
-            $profile->setState($data['state']);
-
-        if (key_exists('country', $data) && is_null($profile->getCountry()))
-            $profile->setCountry($data['country']);
-
-        if (key_exists('batch', $data) && is_null($profile->getBatch()))
-            $profile->setBatch($data['batch']);
-
         if (key_exists('gender', $data) && $profile->getGender() == Profile::GENDER_UNSPECIFIED)
-            $profile->setBatch($this->strGenderToIntGender($data['gender']));
+            $profile->setGender($this->strGenderToIntGender($data['gender']));
 
         $this->getEntityManager()->persist($profile);
         $this->getEntityManager()->flush();

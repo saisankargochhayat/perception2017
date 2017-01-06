@@ -373,7 +373,7 @@ class Event
      *
      * @return boolean
      */
-    public function getTeamEvent()
+    public function isTeamEvent()
     {
         return $this->teamEvent;
     }

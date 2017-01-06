@@ -24,13 +24,6 @@ class User implements UserInterface, \Serializable, EquatableInterface
 
     /**
      * @var string
-     * @Assert\Regex(pattern="/^[_\w]{1,32}$/", message="Only a-z,A-Z,1-9 and a '_' (underscore)")
-     * @ORM\Column(name="username", type="string", length=32, unique=true,
-     *             nullable=true,options={"customSchemaOptions"={"charset"="ascii", "collate"="ascii_bin"},"charset"="ascii","collation"="ascii_bin"})
-     */
-    public $username;
-    /**
-     * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=32, nullable=false)
      */
@@ -114,30 +107,6 @@ class User implements UserInterface, \Serializable, EquatableInterface
     public function __construct()
     {
         $this->registerDate = new \DateTime();
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     *
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     /**
@@ -569,6 +538,16 @@ class User implements UserInterface, \Serializable, EquatableInterface
 
     public function __toString()
     {
-        return is_null($this->username) ? $this->email : $this->username;
+        return $this->email;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        return $this->email;
     }
 }

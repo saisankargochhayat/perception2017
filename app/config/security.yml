@@ -1,11 +1,19 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
-
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        UserBundle\Entity\User:
+            algorithm: bcrypt
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory: ~
+        perception_auth_provider:
+            entity:
+                class: UserBundle:User
+
+    role_hierarchy:
+        ROLE_COORDINATOR: ROLE_USER        #internal role
+        ROLE_ADMIN: ROLE_COORDINATOR
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,10 +23,18 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            logout:
+                path: /account/logout
+            remember_me:
+                secret: '%secret%'
+                lifetime: 604800
+                name: 'prcptnrmme'
+            form_login:
+                login_path: 'login'
+                check_path: 'login'
+                default_target_path: '/me'
+                target_path_parameter: 'redirect_url'
+                csrf_token_generator: security.csrf.token_manager
+                remember_me: true
+            switch_user: true
+            provider: perception_auth_provider

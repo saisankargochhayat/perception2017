@@ -34,12 +34,6 @@ class Profile
     private $user;
 
     /**
-     * @var string
-     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
-     */
-    private $avatar;
-
-    /**
      * @var int
      * @ORM\Column(name="gender", type="smallint")
      */
@@ -61,7 +55,7 @@ class Profile
     /**
      * @var string
      *
-     * @ORM\Column(name="institute", type="string")
+     * @ORM\Column(name="institute", type="string", nullable=true)
      */
     private $institute;
 
@@ -69,21 +63,21 @@ class Profile
      * @var string
      *
      *
-     * @ORM\Column(name="stream", type="string")
+     * @ORM\Column(name="stream", type="string", nullable=true)
      */
     private $stream;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="specialization", type="string")
+     * @ORM\Column(name="specialization", type="string", nullable=true)
      */
     private $specialization;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="year_of_study", type="smallint", length=4)
+     * @ORM\Column(name="year_of_study", type="smallint", length=4, nullable=true)
      */
     private $yearOfStudy;
 
@@ -95,30 +89,6 @@ class Profile
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set avatar
-     *
-     * @param string $avatar
-     *
-     * @return Profile
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    /**
-     * Get avatar
-     *
-     * @return string
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
     }
 
     /**
@@ -296,10 +266,9 @@ class Profile
      *
      * @return Profile
      */
-    public function setUser(\UserBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
-
         return $this;
     }
 

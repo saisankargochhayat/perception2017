@@ -2,14 +2,22 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
-
+    - { resource: '@UserBundle/Resources/config/services.yml' }
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en_in
+    locale: en_IN
+    site_hostname:  'perception.cetb.in'
+    site_name:  'Perception 2017'
+    mail_sender_host: '%%site_hostname%'
+    mail_sender_name: '%%site_name%'
+    facebook_app_id: '1711046969206430'
+    facebook_app_secret: '163fe062666ce088bc2a2d21acc24b9a'
+    google_app_id: '95691328307-oi3iiuif4rin861imvdh9ro0mpfdhrq8.apps.googleusercontent.com'
+    google_app_secret: 'P_hTWem1N6hOwvptIPpEJzHE'
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -37,6 +45,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+        - 'RecaptchaBundle:Form:fields.html.twig'
+
 
 # Doctrine Configuration
 doctrine:
@@ -47,7 +59,7 @@ doctrine:
         dbname:   "%database_name%"
         user:     "%database_user%"
         password: "%database_password%"
-        charset:  UTF8
+        charset:  UTF8mb4
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
