@@ -7,3 +7,9 @@ services:
     event_manager:
         class: AppBundle\Service\EventManager
         arguments: ["@doctrine.orm.entity_manager"]
+
+services:
+    templating_lexer:
+        public: true
+        parent: templating.engine.twig
+        class: AppBundle\Service\Twig\TwigLexerEngine
