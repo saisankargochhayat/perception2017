@@ -101,7 +101,6 @@ class ProfileController extends Controller
     public function welcomeToProfileAction(Request $request)
     {
         $profile = $this->getDoctrine()->getRepository('UserBundle:Profile')->getProfileByUserId($this->getUser()->getId());
-        dump($profile);
         $editForm = $this->createForm('UserBundle\Form\ProfileType', $profile);
         $editForm->handleRequest($request);
 
