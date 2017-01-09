@@ -13,7 +13,5 @@ parameters:
     mailer_encryption: tls
     mailer_user: mailer@perception.cetb.in
     mailer_password: perceptioncetb12345
-    facebook_app_id: 1711146249196502
-    facebook_app_secret: 59aa49c8b4d5dff0cb84b2b1ff7bacb1
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

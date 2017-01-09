@@ -85,7 +85,7 @@ swiftmailer:
 vich_uploader:
     db_driver: orm
     mappings:
-        image:
+        upload_event_image:
             uri_prefix:         /images
             upload_destination: '%kernel.root_dir%/../web/images'
 

@@ -173,7 +173,7 @@ class OAuthLoginController extends Controller
                 $this->get('user_mailer')->sendWelcomeEmail($user);
             }
 
-            return $this->oAuthLogin($request,'facebook',$user);
+            return $this->oAuthLogin($request,'facebook',$user, $created);
 
         } else {
             throw $this->createAccessDeniedException();
@@ -194,7 +194,7 @@ class OAuthLoginController extends Controller
                 ->set('_security.main.target_path', '');
 
         if (empty($redirect)) {
-            $redirect = '/me';
+            $redirect = '/';
         }
 
         return $redirect;
@@ -335,14 +335,14 @@ class OAuthLoginController extends Controller
                 $this->get('user_mailer')->sendWelcomeEmail($user);
             }
 
-            return $this->oAuthLogin($request,'google', $user);
+            return $this->oAuthLogin($request,'google', $user, $created);
 
         } else {
             throw $this->createAccessDeniedException();
         }
     }
 
-    private function oAuthLogin(Request $request, string $provider, User $user) {
+    private function oAuthLogin(Request $request, string $provider, User $user, $created) {
         $token = new OAuthToken($user, $provider, 'main', $user->getRoles());
         $token->setAuthenticated(true);
         $this->get("security.token_storage")
@@ -354,6 +354,10 @@ class OAuthLoginController extends Controller
             ->dispatch("security.interactive_login", $event);
 
         $request->getSession()->remove('oauth_data');
+
+        if($created) {
+            return $this->redirectToRoute('user_welcome_edit_profile');
+        }
 
         return $this->redirect($this->getRedirect($request));
 

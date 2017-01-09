@@ -22,7 +22,7 @@ use UserBundle\Security\Token\GuardedUsernamePasswordToken;
  *
  * @package UserBundle\Controller
  *
- * @Route("/account/register")
+ * @Route("register")
  */
 class RegistrationController extends Controller
 {
@@ -84,7 +84,7 @@ class RegistrationController extends Controller
             $request->getSession()
                     ->remove('prefill_lastname');
 
-            $response = $this->redirect($this->getRedirect($request));
+            $response = $this->redirectToRoute('user_welcome_edit_profile', [ 'user_id' => $user->getId() ]);
             $response->headers->setCookie(new Cookie('register_success', true, 0, '/', null, false, false));
 
             return $response;
@@ -94,26 +94,6 @@ class RegistrationController extends Controller
             'registration/register.html.twig',
             ['form' => $form->createView()]
         );
-    }
-
-    private function getRedirect(Request $request)
-    {
-        $redirect = '';
-        if ($request->hasPreviousSession() && $request->getSession()
-                                                      ->has('_security.main.target_path')
-        ) {
-            $redirect = $request->getSession()
-                                ->get('_security.main.target_path');
-        }
-
-        $request->getSession()
-                ->set('_security.main.target_path', '');
-
-        if (empty($redirect)) {
-            $redirect = '/';
-        }
-
-        return $redirect;
     }
 
     /**

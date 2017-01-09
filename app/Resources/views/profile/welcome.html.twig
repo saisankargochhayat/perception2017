@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Hi There!</h1>
+
+    <h2>We just need a few more bits of additional information!</h2>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Continue" />
+    {{ form_end(form) }}
+
+{% endblock %}
+

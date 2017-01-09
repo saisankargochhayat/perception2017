@@ -1,4 +1,4 @@
-user_profile:
+user:
     resource: "@UserBundle/Controller/"
     type:     annotation
 

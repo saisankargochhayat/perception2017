@@ -7,8 +7,8 @@ case $1 in
     "stop" )
     docker stop perception-dev-mysql perception-dev-pma;;
     "init" )
-    setfacl -R  -m u:www-data:rwX -m u:`whoami`:rwX var/cache var/logs
-    setfacl -dR -m u:www-data:rwX -m u:`whoami`:rwX var/cache var/logs
+    setfacl -R  -m u:www-data:rwX -m u:`whoami`:rwX var/cache var/logs var/sessions
+    setfacl -dR -m u:www-data:rwX -m u:`whoami`:rwX var/cache var/logs var/sessions
     docker create --name perception-dev-mysql    -e MYSQL_DATABASE=perception_v1 -e MYSQL_USER=perception -e MYSQL_PASSWORD=perception -e MYSQL_ROOT_PASSWORD=root -p 3306:3306 mysql
     docker create --name perception-dev-pma   -e PMA_ARBITRARY=1 --link perception-dev-mysql:db -p 9100:80 phpmyadmin/phpmyadmin;;
    "destroy" )

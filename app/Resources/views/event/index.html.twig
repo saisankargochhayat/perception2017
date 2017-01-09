@@ -1,46 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'page.html.twig' %}
 
-{% block body %}
-    <h1>Events list</h1>
+{% block title %}Events - Perception 2017{% endblock %}
 
-    <table>
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Slug</th>
-            <th>Description</th>
-            <th>Content</th>
-            <th>Attachments</th>
-            <th>Time</th>
-            <th>Venue</th>
-            <th>Team Event</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
+{% block content %}
+    <div class="content mdl-grid mdl-grid--no-spacing" id="content">
+        <div class="subpageheader mdl-cell--12-col">Events</div>
+        <!-- search and filters should go here -->
         {% for event in events %}
-            <tr>
-                <td><a href="{{ path('admin_event_show', { 'id': event.id }) }}">{{ event.id }}</a></td>
-                <td>{{ event.name }}</td>
-                <td>{{ event.slug }}</td>
-                <td>{{ event.description }}</td>
-                <td>{{ event.content }}</td>
-                <td>{% if event.attachments %}{{ event.attachments|join(', ') }}{% endif %}</td>
-                <td>{% if event.time %}{{ event.time|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ event.venue }}</td>
-                <td>{{ event.teamEvent }}</td>
-                <td>{{ event.price }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('event_show', { 'id': event.id }) }}">show</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
+            <div class="event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
+                <div class="mdl-card__title mdl-card--expand"></div>
+                <div class="mdl-card__actions">
+                    <a class="mdl-button mdl-js-button">{{ event.name }}</a>
+                </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 {% endblock %}

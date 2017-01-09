@@ -9,8 +9,8 @@ use UserBundle\Entity\User;
  * UserEventParticipation
  *
  * @ORM\Table(name="user_event_participation")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserEventParticipationRepository",
- * uniqueConstraints={@ORM\UniqueConstraint(name="unique_participation", columns={"user", "event"})}))
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserEventParticipationRepository")
+ * uniqueConstraints={#ORM\UniqueConstraint(name="unique_participation", columns={"user", "event"})}))
  */
 class UserEventParticipation
 {

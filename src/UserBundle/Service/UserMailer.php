@@ -79,7 +79,7 @@ class UserMailer
                         'email'     => $user->getEmail(),
                         'username'  => $user->getUsername(),
                         'url'       => $this->urlGenerator->generate(
-                            'my_study_table',
+                            'event_index',
                             [],
                             UrlGeneratorInterface::ABSOLUTE_URL
                         ),

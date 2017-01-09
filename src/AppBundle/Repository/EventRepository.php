@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
+use AppBundle\Entity\Event;
 
 /**
  * EventRepository
@@ -10,4 +11,19 @@ namespace AppBundle\Repository;
  */
 class EventRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getFlagships() {
+        return $this->findBy([ 'type' => Event::TYPE_FLAGSHIP ]);
+    }
+
+    public function getCelebrityAppearances() {
+        return $this->findBy([ 'type' => Event::TYPE_CELEBRITY_APPEARANCE ]);
+    }
+
+    public function getWorkshops() {
+        return $this->findBy([ 'type' => Event::TYPE_WORKSHOP ]);
+    }
+
+    public function getGuestLectures() {
+        return $this->findBy([ 'type' => Event::TYPE_GUEST_LECTURE ]);
+    }
 }

@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Event;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +26,18 @@ class EventType extends AbstractType
             ->add('teamEvent')
             ->add('price')
             ->add('coordinators')
-            ->add('image');
+            ->add('imageFile')
+            ->add('type', ChoiceType::class, [
+
+                'choices'           => [
+                    'event.type.event' => Event::TYPE_EVENT,
+                    'event.type.workshop' => Event::TYPE_WORKSHOP,
+                    'event.type.guest_lecture' => Event::TYPE_GUEST_LECTURE,
+                    'event.type.celebrity_appearance' => Event::TYPE_CELEBRITY_APPEARANCE
+                ],
+                'choices_as_values' => true
+            ])
+            ->add('category');
     }
 
     /**

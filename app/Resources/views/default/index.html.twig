@@ -1,452 +1,212 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Perception 2017{% endblock %}
+{% block pageid %}home{% endblock %}
 {% block body %}
-		<section id="slider" class="slider-parallax full-screen dark" style="overflow: hidden; background: url('images/events/parallax/home.jpg') no-repeat center center;background-size: cover;">
-
-			<div class="slider-parallax-inner">
-
-				<div class="container clearfix vertical-middle" style="z-index: 3;">
-
-					<div class="heading-block title-center nobottomborder">
-						<h1>Perception 2017</h1>
-					</div>
-
-					<div id="countdown-ex1" class="countdown countdown-large coming-soon divcenter bottommargin" style="max-width:700px;"></div>
-
-					<div class="center topmargin-lg">
-
-						<a href="#" class="button button-3d button-purple button-rounded button-xlarge">Register Now</a>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</section>
-
-		<!-- Content
-		============================================= -->
-		<section id="content">
-
-			<div class="content-wrap">
-
-				<div class="container clearfix">
-
-					<div class="col_one_fourth nobottommargin">
-						<div class="feature-box fbox-effect fbox-center fbox-outline fbox-dark nobottomborder">
-							<div class="fbox-icon">
-								<a href="#"><i class="icon-calendar i-alt"></i></a>
-							</div>
-							<h3>Interactive Sessions<span class="subtitle">Lorem ipsum dolor sit</span></h3>
-						</div>
-					</div>
-
-					<div class="col_one_fourth nobottommargin">
-						<div class="feature-box fbox-effect fbox-center fbox-outline fbox-dark nobottomborder">
-							<div class="fbox-icon">
-								<a href="#"><i class="icon-map i-alt"></i></a>
-							</div>
-							<h3>Great Locations<span class="subtitle">Officia ipsam laudantium</span></h3>
-						</div>
-					</div>
-
-					<div class="col_one_fourth nobottommargin">
-						<div class="feature-box fbox-effect fbox-center fbox-outline fbox-dark nobottomborder">
-							<div class="fbox-icon">
-								<a href="#"><i class="icon-microphone2 i-alt"></i></a>
-							</div>
-							<h3>Global Speakers<span class="subtitle">Laudantium cum dignissimos</span></h3>
-						</div>
-					</div>
-
-					<div class="col_one_fourth nobottommargin col_last">
-						<div class="feature-box fbox-effect fbox-center fbox-outline fbox-dark nobottomborder">
-							<div class="fbox-icon">
-								<a href="#"><i class="icon-food2 i-alt"></i></a>
-							</div>
-							<h3>In-between Meals<span class="subtitle">Perferendis accusantium quae</span></h3>
-						</div>
-					</div>
-
-					<div class="clear"></div>
-
-					<div class="divider divider-short divider-center"><i class="icon-circle-blank"></i></div>
-
-					<div class="heading-block center">
-						<h2>Speakers.</h2>
-						<span>Over 15 Speakers &amp; 1000+ Developers in attendance.</span>
-					</div>
-
-					<div class="col_one_third nobottommargin">
-
-						<div class="team">
-							<div class="team-image">
-								<img src="images/team/3.jpg" alt="John Doe">
-							</div>
-							<div class="team-desc">
-								<div class="team-title"><h4>John Doe</h4><span>/ CEO, <small>Apple Inc.</small></span></div>
-								<div class="team-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat assumenda similique unde mollitia eum rerum at voluptatibus saepe totam possimus.</div>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="col_one_third nobottommargin">
-
-						<div class="team">
-							<div class="team-image">
-								<img src="images/team/2.jpg" alt="Josh Thompson">
-							</div>
-							<div class="team-desc">
-								<div class="team-title"><h4>Josh Thompson</h4><span>/ Co-Founder, <small>Google Inc.</small></span></div>
-								<div class="team-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat assumenda similique unde mollitia eum rerum at voluptatibus saepe totam possimus.</div>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="col_one_third nobottommargin col_last">
-
-						<div class="team">
-							<div class="team-image">
-								<img src="images/team/8.jpg" alt="Mary Jane">
-							</div>
-							<div class="team-desc">
-								<div class="team-title"><h4>Mary Jane</h4><span>/ Entreprenuer</span></div>
-								<div class="team-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat assumenda similique unde mollitia eum rerum at voluptatibus saepe totam possimus.</div>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="clear"></div>
-
-				</div>
-
-				<div class="section nobottommargin">
-					<div class="container clearfix">
-
-						<div class="heading-block center">
-							<h3>Receive <span>regular</span> Event Updates</h3>
-						</div>
-
-						<div class="subscribe-widget">
-							<div class="widget-subscribe-form-result"></div>
-							<form id="widget-subscribe-form2" action="include/subscribe.php" role="form" method="post" class="nobottommargin">
-								<div class="input-group input-group-lg divcenter" style="max-width:600px;">
-									<span class="input-group-addon"><i class="icon-email2"></i></span>
-									<input type="email" name="widget-subscribe-form-email" class="form-control required email" placeholder="Enter your Email">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="submit">Subscribe Now</button>
-									</span>
-								</div>
-							</form>
-						</div>
-
-					</div>
-				</div>
-
-				<div class="parallax bottommargin-lg dark" style="padding: 60px 0; background-image: url('images/parallax/calendar.jpg'); background-repeat: repeat-y; height: auto;" data-stellar-background-ratio="0.3">
-
-					<div class="container clearfix">
-
-						<div class="events-calendar">
-							<div class="events-calendar-header clearfix">
-								<h2>Events Calendar</h2>
-								<h3 class="calendar-month-year">
-									<span id="calendar-month" class="calendar-month"></span>
-									<span id="calendar-year" class="calendar-year"></span>
-									<nav>
-										<span id="calendar-prev" class="calendar-prev"><i class="icon-chevron-left"></i></span>
-										<span id="calendar-next" class="calendar-next"><i class="icon-chevron-right"></i></span>
-										<span id="calendar-current" class="calendar-current" title="Got to current date"><i class="icon-reload"></i></span>
-									</nav>
-								</h3>
-							</div>
-							<div id="calendar" class="fc-calendar-container"></div>
-						</div>
-
-
-					</div>
-
-				</div>
-
-				<div class="container clearfix">
-
-					<div class="col_three_fifth bothsidebar nobottommargin">
-
-						<div class="fancy-title title-border">
-							<h3>Upcoming Events</h3>
-						</div>
-
-						<div id="posts" class="events small-thumbs">
-
-							<div class="entry clearfix">
-								<div class="entry-image hidden-sm">
-									<a href="#">
-										<img src="images/events/thumbs/1.jpg" alt="Inventore voluptates velit totam ipsa tenetur">
-										<div class="entry-date">10<span>Apr</span></div>
-									</a>
-								</div>
-								<div class="entry-c">
-									<div class="entry-title">
-										<h2><a href="#">Inventore voluptates velit totam ipsa tenetur</a></h2>
-									</div>
-									<ul class="entry-meta clearfix">
-										<li><span class="label label-warning">Private</span></li>
-										<li><a href="#"><i class="icon-time"></i> 11:00 - 19:00</a></li>
-										<li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
-									</ul>
-									<div class="entry-content">
-										<a href="#" class="btn btn-default" disabled="disabled">Buy Tickets</a> <a href="#" class="btn btn-danger">Read More</a>
-									</div>
-								</div>
-							</div>
-
-							<div class="entry clearfix">
-								<div class="entry-image hidden-sm">
-									<a href="#">
-										<img src="images/events/thumbs/2.jpg" alt="Nemo quaerat nam beatae iusto minima vel">
-										<div class="entry-date">16<span>Apr</span></div>
-									</a>
-								</div>
-								<div class="entry-c">
-									<div class="entry-title">
-										<h2><a href="#">Nemo quaerat nam beatae iusto minima vel</a></h2>
-									</div>
-									<ul class="entry-meta clearfix">
-										<li><span class="label label-danger">Urgent</span></li>
-										<li><a href="#"><i class="icon-time"></i> 11:00 - 19:00</a></li>
-										<li><a href="#"><i class="icon-map-marker2"></i> Perth</a></li>
-									</ul>
-									<div class="entry-content">
-										<a href="#" class="btn btn-info">RSVP</a> <a href="#" class="btn btn-danger">Read More</a>
-									</div>
-								</div>
-							</div>
-
-							<div class="entry clearfix">
-								<div class="entry-image hidden-sm">
-									<a href="#">
-										<img src="images/events/thumbs/3.jpg" alt="Ducimus ipsam error fugiat harum recusandae">
-										<div class="entry-date">3<span>May</span></div>
-									</a>
-								</div>
-								<div class="entry-c">
-									<div class="entry-title">
-										<h2><a href="#">Ducimus ipsam error fugiat harum recusandae</a></h2>
-									</div>
-									<ul class="entry-meta clearfix">
-										<li><span class="label label-info">Public</span></li>
-										<li><a href="#"><i class="icon-time"></i> 11:00 - 19:00</a></li>
-										<li><a href="#"><i class="icon-map-marker2"></i> Melbourne</a></li>
-									</ul>
-									<div class="entry-content">
-										<a href="#" class="btn btn-default">Buy Tickets</a> <a href="#" class="btn btn-danger">Read More</a>
-									</div>
-								</div>
-							</div>
-
-							<div class="entry clearfix">
-								<div class="entry-image hidden-sm">
-									<a href="#">
-										<img src="images/events/thumbs/4.jpg" alt="Nisi officia adipisci molestiae aliquam">
-										<div class="entry-date">16<span>Jun</span></div>
-									</a>
-								</div>
-								<div class="entry-c">
-									<div class="entry-title">
-										<h2><a href="#">Nisi officia adipisci molestiae aliquam</a></h2>
-									</div>
-									<ul class="entry-meta clearfix">
-										<li><span class="label label-warning">Private</span></li>
-										<li><a href="#"><i class="icon-time"></i> 12:00 - 18:00</a></li>
-										<li><a href="#"><i class="icon-map-marker2"></i> New York</a></li>
-									</ul>
-									<div class="entry-content">
-										<a href="#" class="btn btn-info">RSVP</a> <a href="#" class="btn btn-danger">Read More</a>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-
-					<div class="col_two_fifth nobottommargin col_last">
-
-						<div class="fancy-title title-border">
-							<h4>Favourite Locations</h4>
-						</div>
-
-						<div id="google-map4" style="height: 300px;" class="gmap bottommargin"></div>
-
-
-						<div class="fancy-title title-border">
-							<h4>Gallery</h4>
-						</div>
-
-						<div class="col_full masonry-thumbs col-4 clearfix" data-lightbox="gallery">
-							<a href="images/events/1.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/1.jpg" alt="Gallery Thumb 1"></a>
-							<a href="images/events/2.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/2.jpg" alt="Gallery Thumb 2"></a>
-							<a href="images/events/3.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/3.jpg" alt="Gallery Thumb 3"></a>
-							<a href="images/events/4.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/4.jpg" alt="Gallery Thumb 4"></a>
-							<a href="images/events/5.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/5.jpg" alt="Gallery Thumb 5"></a>
-							<a href="images/events/6.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/6.jpg" alt="Gallery Thumb 6"></a>
-							<a href="images/events/7.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/7.jpg" alt="Gallery Thumb 7"></a>
-							<a href="images/events/8.jpg" data-lightbox="gallery-item"><img class="image_fade" src="images/events/thumbs/8.jpg" alt="Gallery Thumb 8"></a>
-						</div>
-
-						<div class="fancy-title title-border">
-							<h4>Video</h4>
-						</div>
-
-						<iframe src="//player.vimeo.com/video/30626474" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-
-					</div>
-
-					<div class="clear"></div>
-
-					<div id="oc-clients-full" class="owl-carousel owl-carousel-full image-carousel bottommargin-sm carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false"data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6">
-
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/1.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/2.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/3.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/4.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/5.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/6.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/7.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/8.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/9.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/10.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/11.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/12.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/13.png" alt="Clients"></a></div>
-						<div class="oc-item"><a href="http://logofury.com/"><img src="images/clients/14.png" alt="Clients"></a></div>
-
-					</div>
-
-
-				</div>
-
-				<div class="section footer-stick notopmargin">
-
-					<h4 class="uppercase center"><span>Attendees</span> Feedback</h4>
-
-					<div class="fslider testimonial testimonial-full" data-animation="fade" data-arrows="false">
-						<div class="flexslider">
-							<div class="slider-wrap">
-								<div class="slide">
-									<div class="testi-image">
-										<a href="#"><img src="images/testimonials/3.jpg" alt="Customer Testimonails"></a>
-									</div>
-									<div class="testi-content">
-										<p>Similique fugit repellendus expedita excepturi iure perferendis provident quia eaque. Repellendus, vero numquam?</p>
-										<div class="testi-meta">
-											Steve Jobs
-											<span>Apple Inc.</span>
-										</div>
-									</div>
-								</div>
-								<div class="slide">
-									<div class="testi-image">
-										<a href="#"><img src="images/testimonials/2.jpg" alt="Customer Testimonails"></a>
-									</div>
-									<div class="testi-content">
-										<p>Natus voluptatum enim quod necessitatibus quis expedita harum provident eos obcaecati id culpa corporis molestias.</p>
-										<div class="testi-meta">
-											Collis Ta'eed
-											<span>Envato Inc.</span>
-										</div>
-									</div>
-								</div>
-								<div class="slide">
-									<div class="testi-image">
-										<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
-									</div>
-									<div class="testi-content">
-										<p>Incidunt deleniti blanditiis quas aperiam recusandae consequatur ullam quibusdam cum libero illo rerum!</p>
-										<div class="testi-meta">
-											John Doe
-											<span>XYZ Inc.</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-				</div>
-
-			</div>
-
-		</section><!-- #content end -->
+    <div class="perception-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-layout--no-desktop-drawer-button">
+        <header class="perception-layout-header mdl-layout__header mdl-layout__header--scroll mdl-layout__header--transparent">
+            <div class="mdl-layout__header-row">
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation -->
+                <div class="perception-navigation mdl-navigation mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-layout--large-screen-only">
+                    <nav class="mdl-layout__tab-bar">
+                    <a href="{{ path('event_index') }}" class="mdl-layout__tab mdl-navigation__link">Events</a>
+                    <a data-scroll href="#competitions" class="mdl-layout__tab mdl-navigation__link">Competitions</a>
+                    <a data-scroll href="#celebrities" class="mdl-layout__tab mdl-navigation__link">Celebrities</a>
+                    <a data-scroll href="#lectures" class="mdl-layout__tab mdl-navigation__link">Guest Lectures</a>
+                    <a data-scroll href="#workshops" class="mdl-layout__tab mdl-navigation__link">Workshops</a>
+                    <a data-scroll href="#fun" class="mdl-layout__tab mdl-navigation__link">Entertainment</a>
+                    <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
+                        <span>Register / Login</span>
+                    </a -->
+                </nav>
+                </div>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title mdl-color--blue-700 mdl-color-text--white">Perception 2017</span>
+                <nav class="mdl-navigation">
+                    <a href="events" class="mdl-navigation__link">Events</a>
+                    <a data-scroll href="#competitions" class="mdl-navigation__link">Competitions</a>
+                    <a data-scroll href="#celebrities" class="mdl-navigation__link">Celebrities</a>
+                    <a data-scroll href="#lectures" class="mdl-navigation__link">Guest Lectures</a>
+                    <a data-scroll href="#workshops" class="mdl-navigation__link">Workshops</a>
+                    <a data-scroll href="#fun" class="mdl-navigation__link">Entertainment</a>
+                    <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
+                        <span>Register / Login</span>
+                    </a -->
+                </nav>
+        </div>
+        <main class="perception-layout-content mdl-layout__content mdl-color-text--grey-600">
+            <section class="section-head">
+                <div class="section-content box center">
+                    <div class="logo-wrapper">
+                        <img class="logo" src="/images/perception.png" />
+                    </div>
+                    <h3 class="mdl-typography--headline mdl-color-text--white" >
+                        The annual techno literary management fest of College of Engineering and Technology, Bhubaneswar
+                    </h3>
+                    <div class="row center">
+                        <a href="#explore" class="mdl-button mdl-js-button mdl-js-ripple mdl-button--raised mdl-button-colored mdl-color--light-blue-600 mdl-color-text--white">Explore</a>
+                    </div>
+                </div>
+            </section>
+            <section class="mdl-color--white countdown">
+                <div class="content-box center">
+                    <h3 class="mdl-typography--text-center">31<sup>th</sup> January to 2<sup>nd</sup> February </h3>
+                    <h5 class="mdl-typography--text-center">We are almost there!</h5>
+                    <div id="clockdiv">
+                        <div>
+                            <span class="days"></span>
+                            <div class="smalltext">Days</div>
+                        </div>
+                        <div>
+                            <span class="hours"></span>
+                            <div class="smalltext">Hours</div>
+                        </div>
+                        <div>
+                            <span class="minutes"></span>
+                            <div class="smalltext">Minutes</div>
+                        </div>
+                        <div>
+                            <span class="seconds"></span>
+                            <div class="smalltext">Seconds</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="competitions" class="competitions mdl-color--white">
+                <div class="content-box mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Competitions</h2>
+                    <div class="category mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive" src="{{ asset('images/custom-icon-cogs-600x518.png') }}">
+                        <h4 class="mdl-typography--text-center">Technical</h4>
+                    </div>
+                    <div class="category mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive" src="{{ asset('images/custom-icon-briefcase-closed-600x518.png') }}">
+                        <h4 class="mdl-typography--text-center">Management</h4>
+                    </div>
+                    <div class="category mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive" src="{{ asset('images/custom-icon-ballpoint-600x518.png') }}">
+                        <h4 class="mdl-typography--text-center">Literary</h4>
+                    </div>
+                </div>
+                <div class="content-box featured-events mdl-grid">
+                    <div class="competition event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
+                        <div class="mdl-card__title mdl-card--expand"></div>
+                        <div class="mdl-card__actions">
+                            <span class="mdl-color-text--black">Competition</span>
+                        </div>
+                    </div>
+                    </div>
+            </section>
+            <section id="celebrities" class="celebrities mdl-color--purple-300 mdl-color-text--white">
+                <div class="content-box mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Celebrities</h2>
+                    <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    </div>
+                    <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    </div>
+                    <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    </div>
+                </div>
+            </section>
+            <section id="lectures" class="guest-lectures mdl-color--blue-300 mdl-color-text--white">
+                <div class="content-box mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Guest Lectures</h2>
+                    <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    </div>
+                    <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    </div>
+                    <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    </div>
+                </div>
+            </section>
+            <section id="workshops" class="workshops mdl-color--green-300 mdl-color-text--grey-700">
+                <div class="content-box mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Workshops</h2>
+                    <div class="workshop event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/custom-icon-cogs-600x518.png') }})">
+                        <div class="mdl-card__title mdl-card--expand"></div>
+                        <div class="mdl-card__actions">
+                            <a class="mdl-color-text--black">Workshop</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="fun" class="entertainment mdl-color--yellow-300 mdl-color-text--grey-700">
+                <div class="content-box mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Entertainment</h2>
+                    <div class="fun-event event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
+                        <div class="mdl-card__title mdl-card--expand"></div>
+                        <div class="mdl-card__actions">
+                            <a class="mdl-color-text--black">Event</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="sponsors">
+            </section>
+            <section id="contact" class="contact-us mdl-color--grey-300 mdl-color-text--grey-700">
+                <div class="content-box mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Contact Us</h2>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
+                        <h3>Address</h3>
+                        <address>College of Engineering and Technology,<br>
+                            Kalinga Nagar,<br>
+                            Ghatikia,<br>
+                            Bhubaneswar
+                        </address>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
+                        <h3>Get in touch</h3>
+                        <ul class="contact-options">
+                            <li><i class="material-icons icon">mail</i><a href="mailto:perception@cetb.in">perception@cetb.in</a></li>
+                            <li><img class="icon" src="/images/facebook-box-dark.png" width="24" height="24"><a href="https://www.facebook.com/cet.bbsr.perception/">facebook.com/ascend2.0</a></li>
+                        </ul>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
+                        <form id="contact-us-form">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="text" id="name" name="Name" />
+                                <label class="mdl-textfield__label" for="name">Name</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" type="email" id="email" name="Email" />
+                                <label class="mdl-textfield__label" for="email">Email</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <textarea class="mdl-textfield__input" type="text" rows="3" id="message" name="Message"></textarea>
+                                <label class="mdl-textfield__label" for="message">Message</label>
+                            </div>
+                            <div>
+                                <button type="submit" id="contact-us-send" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                                    Send
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            {% include 'partials/footer.partial.html.twig' %}
+        </main>
+    </div>
 {% endblock %}
 
 {% block tailscripts %}
-
-	<script type="text/javascript">
-		jQuery(document).ready( function($){
-			var newDate = new Date(2016, 9, 31);
-			$('#countdown-ex1').countdown({until: newDate});
-		});
-
-		var cal = $( '#calendar' ).calendario( {
-			onDayClick : function( $el, $contentEl, dateProperties ) {
-
-				for( var key in dateProperties ) {
-					console.log( key + ' = ' + dateProperties[ key ] );
-				}
-
-			},
-			caldata : canvasEvents
-		} ),
-		$month = $( '#calendar-month' ).html( cal.getMonthName() ),
-		$year = $( '#calendar-year' ).html( cal.getYear() );
-
-		$( '#calendar-next' ).on( 'click', function() {
-			cal.gotoNextMonth( updateMonthYear );
-		} );
-		$( '#calendar-prev' ).on( 'click', function() {
-			cal.gotoPreviousMonth( updateMonthYear );
-		} );
-		$( '#calendar-current' ).on( 'click', function() {
-			cal.gotoNow( updateMonthYear );
-		} );
-
-		function updateMonthYear() {
-			$month.html( cal.getMonthName() );
-			$year.html( cal.getYear() );
-		}
-
-		$('#google-map4').gMap({
-			 address: 'Australia',
-			 maptype: 'ROADMAP',
-			 zoom: 3,
-			 markers: [
-				{
-					address: "Melbourne, Australia",
-					html: "Melbourne, Australia"
-				},
-				{
-					address: "Sydney, Australia",
-					html: "Sydney, Australia"
-				},
-				{
-					address: "Perth, Australia",
-					html: "Perth, Australia"
-				}
-			 ],
-			 doubleclickzoom: false,
-			 controls: {
-				 panControl: true,
-				 zoomControl: true,
-				 mapTypeControl: false,
-				 scaleControl: false,
-				 streetViewControl: false,
-				 overviewMapControl: false
-			 }
-		});
-        </script>
+    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script -->
+    {{ parent() }}
+    <script src="scripts/index.js"></script>
 {% endblock %}

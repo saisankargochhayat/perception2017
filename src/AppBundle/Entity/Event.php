@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Event
@@ -15,6 +16,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Event
 {
+    const TYPE_EVENT = 4;
+    const TYPE_CELEBRITY_APPEARANCE = 1;
+    const TYPE_GUEST_LECTURE = 2;
+    const TYPE_WORKSHOP = 3;
+    const TYPE_FLAGSHIP = 4;
+
     /**
      * @var int
      *
@@ -60,13 +67,6 @@ class Event
     private $carousel;
 
     /**
-     * @var Image
-     *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image")
-     */
-    private $image;
-
-    /**
      * @var array
      *
      * @ORM\Column(name="attachments", type="array")
@@ -97,7 +97,6 @@ class Event
 
     /**
      * @var int
-     * @Assert\Currency()
      * @ORM\Column(name="price", type="float", nullable=false)
      */
     private $price;
@@ -109,6 +108,53 @@ class Event
      */
     private $coordinators;
 
+    /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, unique=true, nullable=true)
+     */
+    private $image;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * @Assert\Image(maxSize="5M")
+     * @Vich\UploadableField(mapping="upload_event_image", fileNameProperty="image")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
+     * @var  int
+     * @ORM\Column(name="type", type="smallint", nullable=false)
+     */
+    private $type = Event::TYPE_EVENT;
+
+    /**
+     * @var Category
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
+     */
+    private $category;
 
     /**
      * Get id
@@ -219,7 +265,7 @@ class Event
     /**
      * Set coverImage
      *
-     * @param Image $image
+     * @param string $image
      *
      * @return Event
      */
@@ -233,7 +279,7 @@ class Event
     /**
      * Get coverImage
      *
-     * @return Image
+     * @return string
      */
     public function getImage()
     {
@@ -318,6 +364,8 @@ class Event
     public function __construct()
     {
         $this->carousel = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     /**
@@ -381,7 +429,7 @@ class Event
     /**
      * Set price
      *
-     * @param integer $price
+     * @param float $price
      *
      * @return Event
      */
@@ -434,5 +482,129 @@ class Event
     public function getCoordinators()
     {
         return $this->coordinators;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return string
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param string $createdBy
+     *
+     * @return $this
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file
+     *
+     * @return $this
+     */
+    public function setImageFile(File $file = null)
+    {
+        $this->imageFile = $file;
+        if ($file) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+        return $this;
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return $this
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     * @return $this
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getType(): int
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     * @return $this
+     */
+    public function setType(int $type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return Category|null
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param Category $category
+     * @return $this
+     */
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+        return $this;
     }
 }

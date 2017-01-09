@@ -24,7 +24,7 @@ class ProfileController extends Controller
      * @Method("GET")
      */
     /**
-     *
+     * @Route("/account", name="my_account")
      * @Route("/me", name="user_profile_my")
      * @Security("'ROLE_USER'")
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -87,5 +87,53 @@ class ProfileController extends Controller
      */
     public function editAction(Request $request, User $user) {
 
+    }
+
+    /**
+     * Displays a welcome message.
+     *
+     * @Security("has_role('ROLE_USER')")
+     * @Route("welcome", name="user_welcome_edit_profile")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function welcomeToProfileAction(Request $request)
+    {
+        $profile = $this->getDoctrine()->getRepository('UserBundle:Profile')->getProfileByUserId($this->getUser()->getId());
+        dump($profile);
+        $editForm = $this->createForm('UserBundle\Form\ProfileType', $profile);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirect($this->getRedirect($request));
+        }
+
+        return $this->render('profile/welcome.html.twig', array(
+            'profile' => $profile,
+            'form' => $editForm->createView()
+        ));
+    }
+
+    private function getRedirect(Request $request)
+    {
+        $redirect = '';
+        if ($request->hasPreviousSession() && $request->getSession()
+                ->has('_security.main.target_path')
+        ) {
+            $redirect = $request->getSession()
+                ->get('_security.main.target_path');
+        }
+
+        $request->getSession()
+            ->set('_security.main.target_path', '');
+
+        if (empty($redirect)) {
+            $redirect = '/';
+        }
+
+        return $redirect;
     }
 }

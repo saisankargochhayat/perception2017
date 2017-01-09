@@ -41,42 +41,36 @@ class Profile
 
     /**
      * @var string
-     * @ORM\Column(name="phone", type="bigint", length=15, nullable=true)
+     * @Assert\Regex("/(?:\+\d{2})?\d{10}/")
+     * @Assert\NotBlank()
+     * @ORM\Column(name="phone", type="string", length=13, nullable=true)
      */
     private $phone;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=32, nullable=true)
-     */
-    private $address;
-
-    /**
-     * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="institute", type="string", nullable=true)
      */
     private $institute;
 
     /**
      * @var string
-     *
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="stream", type="string", nullable=true)
      */
     private $stream;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="specialization", type="string", nullable=true)
      */
     private $specialization;
 
     /**
      * @var int
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="year_of_study", type="smallint", length=4, nullable=true)
      */
     private $yearOfStudy;

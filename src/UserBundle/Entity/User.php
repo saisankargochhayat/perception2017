@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="user_data")
  * @ORM\Entity(repositoryClass="UserBundle\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="Email Already Registered")
- * @UniqueEntity(fields="username", message="Username not available")
  */
 class User implements UserInterface, \Serializable, EquatableInterface
 {
@@ -25,13 +24,13 @@ class User implements UserInterface, \Serializable, EquatableInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=32, nullable=false)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      */
     public $firstName;
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=32, nullable=true)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=true)
      */
     public $lastName;
     /**
@@ -523,7 +522,7 @@ class User implements UserInterface, \Serializable, EquatableInterface
     /**
      * @return int
      */
-    public function getType()
+    public function getType() : int
     {
         return $this->type;
     }
@@ -536,7 +535,7 @@ class User implements UserInterface, \Serializable, EquatableInterface
         $this->type = $type;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return $this->email;
     }
@@ -546,8 +545,12 @@ class User implements UserInterface, \Serializable, EquatableInterface
      *
      * @return string The username
      */
-    public function getUsername()
+    public function getUsername() : string
     {
         return $this->email;
+    }
+
+    public function getName() : string {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }
