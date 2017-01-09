@@ -47,14 +47,14 @@ echo "$(tput bold)$(tput setaf 4)Warming up cache..."
 
 if [ ${_ENV} == "prod" ]
 then
-    app/console cache:warmup   --env=prod --no-debug || exit 1
-    app/console assets:install --env=prod --no-debug || exit 1
-    app/console assetic:dump   --env=prod --no-debug || exit 1
+    bin/console cache:warmup   --env=prod --no-debug || exit 1
+    bin/console assets:install --env=prod --no-debug || exit 1
 else
-    app/console cache:warmup   || exit 1
-    app/console assets:install || exit 1
-    app/console assetic:dump   || exit 1
+    bin/console cache:warmup   || exit 1
+    bin/console assets:install || exit 1
+#    bin/console assetic:dump   || exit 1
 fi
+
 
 # support auto migrations
 
@@ -69,8 +69,8 @@ echo "$(tput bold)$(tput setaf 4)Linking..."
 
 ln -sf  ~/content            -T web/uploads  || exit 1
 
-echo "$(tput bold)$(tput setaf 4)Deploying to staging server..."
-ln -sf `pwd`/web /srv/www/perception-staging.cetb.in || exit 1
+# echo "$(tput bold)$(tput setaf 4)Deploying to staging server..."
+# ln -sf `pwd`/web /srv/www/perception-staging.cetb.in || exit 1
 
 # echo "$(tput bold)$(tput setaf 4)Testing if staging is up..."
 # curl -sf -o /dev/null "http://127.0.0.1:8000"
