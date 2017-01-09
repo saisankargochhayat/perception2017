@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </section>
-            <section id="competitions" class="competitions mdl-color--white">
+            <section id="competitions" class="competitions center mdl-color--white">
                 <div class="content-box mdl-grid">
                     <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Competitions</h2>
                     <div class="category mdl-cell mdl-cell--4-col">
@@ -92,63 +92,94 @@
                         <h4 class="mdl-typography--text-center">Literary</h4>
                     </div>
                 </div>
-                <div class="content-box featured-events mdl-grid">
-                    <div class="competition event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
+                {% if hasFlagships %}
+                <div class="content-box featured-events center mdl-grid">
+                    {% for event in flagships %}
+                    <div class="competition event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col"
+                            {% if event.image %}
+                         style="background-image: url({{ asset('uploads/images/' ~ event.image.fileName) }})">
+                            {% else %}
+                        style="background-image: url({{ asset('images/event.jpg') }})">
+                        {% endif %}
                         <div class="mdl-card__title mdl-card--expand"></div>
                         <div class="mdl-card__actions">
-                            <span class="mdl-color-text--black">Competition</span>
+                            <span class="mdl-color-text--black">{{ event.name }}</span>
                         </div>
                     </div>
+                    {% endfor %}
                     </div>
+                {% endif %}
             </section>
+            {% if hasCelebrityAppearances %}
             <section id="celebrities" class="celebrities mdl-color--purple-300 mdl-color-text--white">
-                <div class="content-box mdl-grid">
+                <div class="content-box center mdl-grid">
                     <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Celebrities</h2>
+                    {% for event in celebrityAppearances %}
                     <div class="celebrity person mdl-cell mdl-cell--4-col">
+                        {% if event.image %}
+                        <img class="img-responsive img-circle" src="{{ asset('uploads/images/' ~ event.image.fileName) }}">
+                        {% else %}
                         <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
-                        <h4 class="mdl-typography--text-center">Someone</h4>
+                        {% endif %}
+                        <h4 class="mdl-typography--text-center">{{ event.description }}</h4>
                     </div>
-                    <div class="celebrity person mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
-                        <h4 class="mdl-typography--text-center">Someone</h4>
-                    </div>
-                    <div class="celebrity person mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
-                        <h4 class="mdl-typography--text-center">Someone</h4>
-                    </div>
+                    {% endfor %}
                 </div>
             </section>
+            {% endif %}
+            {% if hasGuestLectures %}
             <section id="lectures" class="guest-lectures mdl-color--blue-300 mdl-color-text--white">
-                <div class="content-box mdl-grid">
+                <div class="content-box center mdl-grid">
                     <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Guest Lectures</h2>
-                    <div class="celebrity person mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
-                        <h4 class="mdl-typography--text-center">Someone</h4>
+                    {% for event in celebrityAppearances %}
+                    <div class="guest-lecture person mdl-cell mdl-cell--4-col">
+                        {% if event.image %}
+                            <img class="img-responsive img-circle" src="{{ asset('uploads/images/' ~ event.image.fileName) }}">
+                        {% else %}
+                            <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                        {% endif %}
+                        <h4 class="mdl-typography--text-center">{{ event.description }}</h4>
                     </div>
-                    <div class="celebrity person mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
-                        <h4 class="mdl-typography--text-center">Someone</h4>
-                    </div>
-                    <div class="celebrity person mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
-                        <h4 class="mdl-typography--text-center">Someone</h4>
-                    </div>
+                    {% endfor %}
+
                 </div>
             </section>
+            {% endif %}
+            {% if hasWorkshops %}
             <section id="workshops" class="workshops mdl-color--green-300 mdl-color-text--grey-700">
-                <div class="content-box mdl-grid">
+                <div class="content-box center mdl-grid">
                     <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Workshops</h2>
-                    <div class="workshop event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/custom-icon-cogs-600x518.png') }})">
+                    {% for event in flagships %}
+                        <div class="workshop event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col"
+                                {% if event.image %}
+                             style="background-image: url({{ asset('uploads/images/' ~ event.image.fileName) }})">
+                            {% else %}
+                                style="background-image: url({{ asset('images/event.jpg') }})">
+                            {% endif %}
+                            <div class="mdl-card__title mdl-card--expand"></div>
+                            <div class="mdl-card__actions">
+                                <span class="mdl-color-text--black">{{ event.name }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+            <section id="fun" class="entertainment mdl-color--yellow-300 mdl-color-text--grey-700">
+                <div class="content-box center mdl-grid">
+                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Entertainment</h2>
+                    <div class="fun-event event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
                         <div class="mdl-card__title mdl-card--expand"></div>
                         <div class="mdl-card__actions">
-                            <a class="mdl-color-text--black">Workshop</a>
+                            <a class="mdl-color-text--black">Event</a>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section id="fun" class="entertainment mdl-color--yellow-300 mdl-color-text--grey-700">
-                <div class="content-box mdl-grid">
-                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Entertainment</h2>
+                    <div class="fun-event event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
+                        <div class="mdl-card__title mdl-card--expand"></div>
+                        <div class="mdl-card__actions">
+                            <a class="mdl-color-text--black">Event</a>
+                        </div>
+                    </div>
                     <div class="fun-event event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
                         <div class="mdl-card__title mdl-card--expand"></div>
                         <div class="mdl-card__actions">

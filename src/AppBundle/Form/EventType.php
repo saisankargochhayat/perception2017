@@ -19,17 +19,17 @@ class EventType extends AbstractType
             ->add('name')
             ->add('slug')
             ->add('description')
+            ->add('image')
             ->add('content')
             ->add('attachments')
             ->add('time')
             ->add('venue')
             ->add('teamEvent')
             ->add('price')
-            ->add('coordinators')
-            ->add('imageFile')
             ->add('type', ChoiceType::class, [
 
                 'choices'           => [
+                    'event.type.flagship_event' => Event::TYPE_FLAGSHIP,
                     'event.type.event' => Event::TYPE_EVENT,
                     'event.type.workshop' => Event::TYPE_WORKSHOP,
                     'event.type.guest_lecture' => Event::TYPE_GUEST_LECTURE,

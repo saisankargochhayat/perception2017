@@ -122,20 +122,12 @@ class Event
     private $createdAt;
 
     /**
-     * @var string
+     * @var Image
      *
-     * @ORM\Column(name="image", type="string", length=255, unique=true, nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Image")
      */
     private $image;
 
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * @Assert\Image(maxSize="5M")
-     * @Vich\UploadableField(mapping="upload_event_image", fileNameProperty="image")
-     *
-     * @var File
-     */
-    private $imageFile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -265,7 +257,7 @@ class Event
     /**
      * Set coverImage
      *
-     * @param string $image
+     * @param Image $image
      *
      * @return Event
      */
@@ -279,7 +271,7 @@ class Event
     /**
      * Get coverImage
      *
-     * @return string
+     * @return Image
      */
     public function getImage()
     {
@@ -506,33 +498,6 @@ class Event
         $this->createdBy = $createdBy;
 
         return $this;
-    }
-
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $file
-     *
-     * @return $this
-     */
-    public function setImageFile(File $file = null)
-    {
-        $this->imageFile = $file;
-        if ($file) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-        return $this;
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
     }
 
     /**

@@ -2,12 +2,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use UserBundle\Entity\User;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * File
  *
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
  */
@@ -39,13 +42,12 @@ class Image
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="string", length=255, unique=true, nullable=false)
+     * @ORM\Column(name="file_name", type="string", length=255, unique=true, nullable=false)
      */
-    private $path;
+    private $fileName;
 
     /**
      * @var User
-     * @Assert\NotNull()
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User")
      */
     private $createdBy;
@@ -60,9 +62,9 @@ class Image
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * @Assert\Image(maxSize="5M")
-     * @Vich\UploadableField(mapping="upload_file", fileNameProperty="name")
+     * @Vich\UploadableField(mapping="upload_image", fileNameProperty="fileName")
      *
-     * @var File
+     * @var UploadedFile
      */
     private $file;
 
@@ -136,21 +138,21 @@ class Image
      *
      * @return string
      */
-    public function getPath()
+    public function getFileName()
     {
-        return $this->path;
+        return $this->fileName;
     }
 
     /**
      * Set path
      *
-     * @param string $path
+     * @param string $fileName
      *
      * @return Image
      */
-    public function setPath($path)
+    public function setFileName($fileName)
     {
-        $this->path = $path;
+        $this->fileName = $fileName;
 
         return $this;
     }
@@ -190,7 +192,7 @@ class Image
      *
      * @return $this
      */
-    public function setFile(File $file = null)
+    public function setFile(\Symfony\Component\HttpFoundation\File\File $file = null)
     {
         $this->file = $file;
 
@@ -241,10 +243,15 @@ class Image
     }
 
     /**
-     * @return File|null
+     * @return mixed
      */
     public function getFile()
     {
         return $this->file;
+    }
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 }

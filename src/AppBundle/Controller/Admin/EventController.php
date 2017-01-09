@@ -47,6 +47,9 @@ class EventController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $file = $event->getImageFile();
+
             $em->persist($event);
             $em->flush();
 
@@ -95,7 +98,7 @@ class EventController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_event_edit', array('id' => $event->getId()));
+            return $this->redirectToRoute('admin_event_show', array('id' => $event->getId()));
         }
 
         return $this->render('admin/event/edit.html.twig', array(

@@ -16,10 +16,7 @@ class ImageType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('path')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('createdBy');
+            ->add('file');
     }
     
     /**

@@ -48,6 +48,7 @@ html>body {
 .img-circle {
     border-radius: 50%;
 }
+
 .person, .category img {
     width: 255px;
 }
@@ -99,8 +100,12 @@ html>body {
     }
 }
 
-.templates .perception-layout-header.mdl-layout__header {
+.events .perception-layout-header.mdl-layout__header {
     background-color: #263238;
+}
+
+.events #content {
+    padding-bottom: 2em;
 }
 
 .contact-us  .contact-options > li {

@@ -46,10 +46,12 @@ class ImageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image->setCreatedBy($this->getUser());
+            $image->setUpdatedAt(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $em->persist($image);
             $em->flush();
-
+            $this->addFlash('success', 'image.saved');
             return $this->redirectToRoute('admin_image_show', array('id' => $image->getId()));
         }
 
@@ -90,9 +92,13 @@ class ImageController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $image->setUpdatedAt(new \DateTime());
 
-            return $this->redirectToRoute('admin_image_edit', array('id' => $image->getId()));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($image);
+            $em->flush();
+            $this->addFlash('success', 'image.saved');
+            return $this->redirectToRoute('admin_image_show', array('id' => $image->getId()));
         }
 
         return $this->render('admin/image/edit.html.twig', array(

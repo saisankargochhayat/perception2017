@@ -85,9 +85,11 @@ swiftmailer:
 vich_uploader:
     db_driver: orm
     mappings:
-        upload_event_image:
-            uri_prefix:         /images
-            upload_destination: '%kernel.root_dir%/../web/images'
+        upload_image:
+            uri_prefix:         /uploads/images
+            upload_destination: '%kernel.root_dir%/../web/uploads/images'
+            delete_on_remove: true # whether to delete file upon removal of entity
+            inject_on_load: true # whether to inject a File upon load
 
 recaptcha:
     site_key: '6Ld1zhAUAAAAANmsluLvgmqLvoHbKoUoxTn9np9O'
