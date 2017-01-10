@@ -10,14 +10,14 @@
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
                 <!-- Navigation -->
-                <nav class="perception-navigation mdl-navigation mdl-layout__tab-bar mdl-js-ripple-effect mdl-layout--large-screen-only">
-                    <a href="{{ path('homepage') }}" class="mdl-layout__tab mdl-navigation__link">Home</a>
-                    <a href="{{ path('event_index') }}" class="mdl-layout__tab mdl-navigation__link">Events</a>
-                    <a data-scroll href="/#competitions" class="mdl-layout__tab mdl-navigation__link">Competitions</a>
-                    <a data-scroll href="/#celebrities" class="mdl-layout__tab mdl-navigation__link">Celebrities</a>
-                    <a data-scroll href="/#lectures" class="mdl-layout__tab mdl-navigation__link">Guest Lectures</a>
-                    <a data-scroll href="/#workshops" class="mdl-layout__tab mdl-navigation__link">Workshops</a>
-                    <a data-scroll href="/#fun" class="mdl-layout__tab mdl-navigation__link">Entertainment</a>
+                <nav class="perception-navigation mdl-navigation mdl-layout--large-screen-only">
+                    <a href="{{ path('homepage') }}" class="mdl-navigation__link">Home</a>
+                    <a href="{{ path('event_index') }}" class="mdl-navigation__link">Events</a>
+                    <a data-scroll href="/#competitions" class="mdl-navigation__link">Competitions</a>
+                    <a data-scroll href="/#celebrities" class="mdl-navigation__link">Celebrities</a>
+                    <a data-scroll href="/#lectures" class="mdl-navigation__link">Guest Lectures</a>
+                    <a data-scroll href="/#workshops" class="mdl-navigation__link">Workshops</a>
+                    <a data-scroll href="/#fun" class="mdl-navigation__link">Entertainment</a>
                     <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
                         <span>Register / Login</span>
                     </a -->
@@ -28,7 +28,7 @@
             <span class="mdl-layout-title mdl-color--blue-700 mdl-color-text--white">Perception 2017</span>
             <nav class="mdl-navigation">
                 <a href="/" class="mdl-navigation__link"><span class="material-icons">home</span>Home</a>
-                <a href="events" class="mdl-navigation__link"><span class="material-icons">event</span>Events</a>
+                <a href="{{ path('event_index') }}" class="mdl-navigation__link"><span class="material-icons">event</span>Events</a>
                 <a data-scroll href="/#competitions" class="mdl-navigation__link"><span class="material-icons">event</span>Competitions</a>
                 <a data-scroll href="/#celebrities" class="mdl-navigation__link"><span class="material-icons">face</span>Celebrities</a>
                 <a data-scroll href="/#lectures" class="mdl-navigation__link"><span class="material-icons">speaker_notes</span>Guest Lectures</a>
@@ -45,10 +45,4 @@
             {% include 'partials/footer.partial.html.twig' %}
         </main>
     </div>
-{% endblock %}
-
-{% block tailscripts %}
-    <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script -->
-    {{ parent() }}
-    <script src="scripts/index.js"></script>
 {% endblock %}
