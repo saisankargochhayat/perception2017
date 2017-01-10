@@ -24,17 +24,18 @@
         </header>
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title mdl-color--blue-700 mdl-color-text--white">Perception 2017</span>
-                <nav class="mdl-navigation">
-                    <a href="events" class="mdl-navigation__link">Events</a>
-                    <a data-scroll href="#competitions" class="mdl-navigation__link">Competitions</a>
-                    <a data-scroll href="#celebrities" class="mdl-navigation__link">Celebrities</a>
-                    <a data-scroll href="#lectures" class="mdl-navigation__link">Guest Lectures</a>
-                    <a data-scroll href="#workshops" class="mdl-navigation__link">Workshops</a>
-                    <a data-scroll href="#fun" class="mdl-navigation__link">Entertainment</a>
-                    <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
+            <nav class="perception-navigation mdl-navigation mdl-layout--large-screen-only">
+                <a href="{{ path('homepage') }}" class="mdl-navigation__link">Home</a>
+                <a href="{{ path('event_index') }}" class="mdl-navigation__link">Events</a>
+                <a data-scroll href="#competitions" class="mdl-navigation__link">Competitions</a>
+                <a data-scroll href="#celebrities" class="mdl-navigation__link">Celebrities</a>
+                <a data-scroll href="#lectures" class="mdl-navigation__link">Guest Lectures</a>
+                <a data-scroll href="#workshops" class="mdl-navigation__link">Workshops</a>
+                <a data-scroll href="#fun" class="mdl-navigation__link">Entertainment</a>
+                <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
                         <span>Register / Login</span>
                     </a -->
-                </nav>
+            </nav>
         </div>
         <main class="perception-layout-content mdl-layout__content mdl-color-text--grey-600">
             <section class="section-head">
@@ -46,7 +47,7 @@
                         The annual techno literary management fest of College of Engineering and Technology, Bhubaneswar
                     </h3>
                     <div class="row center">
-                        <a href="#explore" class="mdl-button mdl-js-button mdl-js-ripple mdl-button--raised mdl-button-colored mdl-color--light-blue-600 mdl-color-text--white">Explore</a>
+                        <a data-scroll href="#explore" class="mdl-button mdl-js-button mdl-js-ripple mdl-button--raised mdl-button-colored mdl-color--light-blue-600 mdl-color-text--white">Explore</a>
                     </div>
                 </div>
             </section>
@@ -76,6 +77,7 @@
             </section>
             <section id="competitions" class="competitions center mdl-color--white">
                 <div class="content-box mdl-grid">
+                    <a id="explore"></a>
                     <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Competitions</h2>
                     <div class="category mdl-cell mdl-cell--4-col">
                         <img class="img-responsive" src="{{ asset('images/custom-icon-cogs-600x518.png') }}">
@@ -203,7 +205,7 @@
                         <h3>Get in touch</h3>
                         <ul class="contact-options">
                             <li><i class="material-icons icon">mail</i><a href="mailto:perception@cetb.in">perception@cetb.in</a></li>
-                            <li><img class="icon" src="/images/facebook-box-dark.png" width="24" height="24"><a href="https://www.facebook.com/cet.bbsr.perception/">facebook.com/cet.bbsr.perception</a></li>
+                            <li><img class="icon" src="/images/facebook-box-dark.png" width="24" height="24"><a href="https://www.facebook.com/cet.bbsr.perception/">@cet.bbsr.perception</a></li>
                         </ul>
                     </div>
                     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
@@ -238,6 +240,7 @@
     <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script -->
     {{ parent() }}
     {% javascripts
+        'scripts/smooth-scroll.js'
         'scripts/index.js'
     %}
     <script src="{{ asset_url }}"></script>

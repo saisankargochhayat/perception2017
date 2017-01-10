@@ -40,4 +40,5 @@
         timeInterval = setInterval(updateClock, 1000);
     };
     initializeClock(document.querySelector('#clockdiv'), new Date('2017-01-31T09:00+05:30'));
+    smoothScroll.init();
 })();
