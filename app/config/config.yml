@@ -95,3 +95,11 @@ vich_uploader:
 recaptcha:
     site_key: '6Ld1zhAUAAAAANmsluLvgmqLvoHbKoUoxTn9np9O'
     secret_key: '6Ld1zhAUAAAAAKkcttgYAgUWG_WfBT3Joo3C0oP5'
+
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    workers:
+        cache_busting: ~
+    filters:
+        cssrewrite: ~

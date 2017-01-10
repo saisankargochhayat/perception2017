@@ -203,7 +203,7 @@
                         <h3>Get in touch</h3>
                         <ul class="contact-options">
                             <li><i class="material-icons icon">mail</i><a href="mailto:perception@cetb.in">perception@cetb.in</a></li>
-                            <li><img class="icon" src="/images/facebook-box-dark.png" width="24" height="24"><a href="https://www.facebook.com/cet.bbsr.perception/">facebook.com/ascend2.0</a></li>
+                            <li><img class="icon" src="/images/facebook-box-dark.png" width="24" height="24"><a href="https://www.facebook.com/cet.bbsr.perception/">facebook.com/cet.bbsr.perception</a></li>
                         </ul>
                     </div>
                     <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
@@ -237,5 +237,9 @@
 {% block tailscripts %}
     <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script -->
     {{ parent() }}
-    <script src="scripts/index.js"></script>
+    {% javascripts
+        'scripts/index.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}

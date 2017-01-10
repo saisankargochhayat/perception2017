@@ -49,10 +49,11 @@ if [ ${_ENV} == "prod" ]
 then
     bin/console cache:warmup   --env=prod --no-debug || exit 1
     bin/console assets:install --env=prod --no-debug || exit 1
+    bin/console assetic:dump   --env=prod --no-debug || exit 1
 else
     bin/console cache:warmup   || exit 1
     bin/console assets:install || exit 1
-#    bin/console assetic:dump   || exit 1
+    bin/console assetic:dump   || exit 1
 fi
 
 

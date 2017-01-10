@@ -18,6 +18,8 @@
 /vendor/
 /web/bundles/
 /web/uploads
+/web/css
+/web/js
 /.idea
 
 !/web/uploads/images/.gitkeep
