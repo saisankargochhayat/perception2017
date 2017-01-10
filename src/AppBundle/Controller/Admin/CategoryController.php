@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
 
-        return $this->render('category/index.html.twig', array(
+        return $this->render('admin/category/index.html.twig', array(
             'categories' => $categories,
         ));
     }
@@ -52,7 +52,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('admin_category_show', array('id' => $category->getId()));
         }
 
-        return $this->render('category/new.html.twig', array(
+        return $this->render('admin/category/new.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
         ));
@@ -68,7 +68,7 @@ class CategoryController extends Controller
     {
         $deleteForm = $this->createDeleteForm($category);
 
-        return $this->render('category/show.html.twig', array(
+        return $this->render('admin/category/show.html.twig', array(
             'category' => $category,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -92,7 +92,7 @@ class CategoryController extends Controller
             return $this->redirectToRoute('admin_category_edit', array('id' => $category->getId()));
         }
 
-        return $this->render('category/edit.html.twig', array(
+        return $this->render('admin/category/edit.html.twig', array(
             'category' => $category,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
