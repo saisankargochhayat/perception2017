@@ -1,16 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
 {% block body %}
-    <h1>Image creation</h1>
+    <div class="container">
+        <h1>Image creation</h1>
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <input type="submit" value="Create"/>
+        {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_image_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('admin_image_index') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

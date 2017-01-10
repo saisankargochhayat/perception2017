@@ -3,16 +3,18 @@
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-    <h1>File creation</h1>
+    <div class="container">
+        <h1>File creation</h1>
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <input type="submit" value="Create"/>
+        {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_file_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('admin_file_index') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

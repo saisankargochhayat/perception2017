@@ -1,18 +1,32 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {% block body %}
-    <h1>Event creation</h1>
+    <div class="container">
+        <h1>Event creation</h1>
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        <input type="submit" class="btn btn-submit btn-raised btn-success" value="Edit"/>
+        {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_event_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('admin_event_index') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block tailscripts %}
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE();
+    </script>
 {% endblock %}

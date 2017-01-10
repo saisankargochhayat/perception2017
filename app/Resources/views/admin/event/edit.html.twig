@@ -1,22 +1,36 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+{% endblock %}
+
 {% form_theme edit_form 'bootstrap_3_layout.html.twig' %}
 {% block body %}
-    <h1>Event edit</h1>
+    <div class="container">
+        <h1>Event edit</h1>
 
-    {{ form_start(edit_form) }}
+        {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" class="btn btn-submit btn-raised btn-success" value="Edit" />
-    {{ form_end(edit_form) }}
+        <input type="submit" class="btn btn-submit btn-raised btn-success" value="Edit"/>
+        {{ form_end(edit_form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_event_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
+        <ul>
+            <li>
+                <a href="{{ path('admin_event_index') }}">Back to the list</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block tailscripts %}
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+    <script>
+        var simplemde = new SimpleMDE();
+    </script>
 {% endblock %}
