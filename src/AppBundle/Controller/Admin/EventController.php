@@ -3,13 +3,14 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Event;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Event controller.
- *
+ * @Security("has_role('ROLE_USER')")
  * @Route("admin/event")
  */
 class EventController extends Controller
@@ -46,9 +47,8 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event->setCreatedBy($this->getUser());
             $em = $this->getDoctrine()->getManager();
-
-            $file = $event->getImageFile();
 
             $em->persist($event);
             $em->flush();
@@ -96,6 +96,7 @@ class EventController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $event->setUpdatedAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_event_show', array('id' => $event->getId()));

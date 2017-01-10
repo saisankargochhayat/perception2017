@@ -1,12 +1,11 @@
-{% extends "::base.html.twig" %}
+{% extends "::page.html.twig" %}
 
 {% block title %}Login - Perception 2017{% endblock %}
 
 {% block body %}
 <section id="login_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+    <div class="mdl-grid center">
+                <div class="mdl-cell mdl-cell--4-col">
                 {% if error %}
                     <div class="alert alert-warning">
                         {{ error.messageKey|trans(error.messageData,'security') }}
@@ -14,51 +13,47 @@
                 {% endif %}
                 <div id="login">
                     <p class="text-center">
-                        <img src="{{ asset('assets/img/login_logo.png') }}" alt="Perception Logo">
+                        <img src="{{ asset('images/perception.png') }}" alt="Perception Logo">
                     </p>
                     <hr>
                     <form action="{{ path ('login') }}" method="post">
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6 login_social">
+                            <div>
                                 {% if redirect_url %}
                                     <a href="{{ path('login_facebook', { 'redirect_url': redirect_url }) }}"
-                                       class="btn btn-primary btn-block">
+                                       class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-500 mdl-color-text--white">
                                         <i class="icon-facebook"></i> {% trans %}user.login.facebook{% endtrans %}
                                     </a>
                                 {% else %}
-                                    <a href="{{ path('login_facebook') }}" class="btn btn-primary btn-block">
+                                    <a href="{{ path('login_facebook') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-500 mdl-color-text--white">
                                         <i class="icon-facebook"></i> {% trans %}user.login.facebook{% endtrans %}
                                     </a>
                                 {% endif %}
-                            </div>
-                            <div class="col-md-6 col-sm-6 login_social">
                                 {% if redirect_url %}
                                     <a href="{{ path('login_google', { 'redirect_url': redirect_url }) }}"
-                                       class="btn btn-danger btn-block "><i
+                                       class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i
                                                 class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
                                 {% else %}
                                     <a href="{{ path('login_google') }}"
-                                       class="btn btn-danger btn-block "><i
+                                       class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i
                                                 class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
                                 {% endif %}
                             </div>
-                        </div> <!-- end row -->
                         <div class="login-or">
                             <hr class="hr-or">
                             <span class="span-or">or</span></div>
 
-                        <div class="form-group">
-                            <input type="text" id="username" name="_username" class=" form-control "
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input type="text" id="username" name="_username" class="mdl-textfield__input"
                                    placeholder="Username or Email" value="{{ last_username }}">
-                            <span class="input-icon"><i class=" icon-user"></i></span>
+                            <label class="mdl-textfield__label"><i class=" icon-user"></i></label>
                         </div>
-                        <div class="form-group" style="margin-bottom:5px;">
-                            <input type="password" id="password" name="_password" class=" form-control"
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <input type="password" id="password" name="_password" class="mdl-textfield__input"
                                    placeholder="Password" style="margin-bottom:5px;">
-                            <span class="input-icon"><i class="icon-lock"></i></span>
+                            <label class="mdl-textfield__label"><i class="icon-lock"></i></label>
                         </div>
-                        <div class="form-group">
+                        <div class="">
                             <input type="checkbox" id="remember_me" checked name="_remember_me"/>
                             <label for="remember_me">Remember me</label>
                         </div>
@@ -68,8 +63,8 @@
                         <p class="small">
                             <a href="{{ path('account_request_password_reset') }}">Forgot Password?</a>
                         </p>
-                        <button type="submit" class="button_fullwidth">Log in</button>
-                        <a href="{{ path('account_register') }}" class="button_fullwidth-2">Register</a>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--green-500">Log in</button>
+                        <a href="{{ path('account_register') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--blue-grey-500">Register</a>
                     </form>
                 </div>
             </div>

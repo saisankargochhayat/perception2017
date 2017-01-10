@@ -250,6 +250,11 @@ class Image
         return $this->file;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();

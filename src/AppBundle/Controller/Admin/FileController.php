@@ -2,13 +2,14 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\File;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * File controller.
- *
+ * @Security("has_role('ROLE_USER')")
  * @Route("admin/file")
  */
 class FileController extends Controller

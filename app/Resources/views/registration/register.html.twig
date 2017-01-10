@@ -1,83 +1,61 @@
-{% extends "::base.html.twig" %}
+{% extends "::page.html.twig" %}
 {% block title %}Register - Perception 2017{% endblock %}
 
 {% block body %}
 
     <section id="login_bg">
-        <div class="container">
-            <div class="row">
-                <div id="login" class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 text-center">
-                    <div >
-                        {{ form_errors(form) }}
-                        <div class="row">
+        <div class="mdl-grid" style="max-width: 480px">
+            {{ form_errors(form) }}
+                <div class="social-login mdl-cell mdl-cell--12-col">
                             <h4>Signup with</h4>
-                            <div class="col-md-6 col-sm-6 login_social">
-                                <a href="{{ path('login_facebook') }}" class="btn btn-primary btn-block">
-                                    <i class="icon-facebook"></i> {% trans %}user.login.facebook{% endtrans %}
-                                </a>
-                            </div>
-                            <div class="col-md-6 col-sm-6 login_social">
+                            <div class="login_social center">
+                                <a href="{{ path('login_facebook') }}" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-500 mdl-color-text--white">
+                                        <i class="icon-facebook"></i> {% trans %}user.login.facebook{% endtrans %}
+                                    </a>
                                 <a href="{{ path('login_google') }}"
-                                   class="btn btn-danger btn-block "><i
-                                            class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
+                                       class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"><i
+                                                class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
                             </div>
                         </div> <!-- end row -->
-                        <div class="login-or">
-                            <hr class="hr-or">
-                            <span class="span-or">or</span></div>
                         <h4>Complete the form</h4>
                         {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6">
-                                <div class="form-group{% if not form.firstName.vars.valid %} has-error{% endif %}">
-                                    {{ form_widget(form.firstName, {'attr': {'placeholder':'First Name', 'class': 'form-control required'}}) }}
-                                    <span class="input-icon"><i class=" icon-user"></i></span>
-                                    {{ form_errors(form.firstName) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <div class="form-group{% if not form.lastName.vars.valid %} has-error{% endif %}">
-                                    {{ form_widget(form.lastName, {'attr': {'placeholder':'Last Name', 'class': 'form-control required'}}) }}
-                                    <span class="input-icon"><i class=" icon-user"></i></span>
-                                    {{ form_errors(form.lastName) }}
-                                </div>
-                            </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            {{ form_widget(form.firstName, {'attr': {'class': 'mdl-textfield__input'}}) }}
+                            <label class="mdl-textfield__label">First name</label>
+                            {{ form_errors(form.firstName) }}
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group{% if not form.email.vars.valid %} has-error{% endif %}">
-                                    {{ form_widget(form.email, {'attr': {'placeholder':'Email', 'class': 'form-control required'}}) }}
-                                    <span class="input-icon"><i class="icon-email"></i></span>
-                                    {{ form_errors(form.email) }}
-                                </div>
-                            </div>
-                            <div class=" col-md-6 col-sm-6">
-                                <div class="form-group{% if not form.plainPassword.first.vars.valid %} has-error{% endif %}">
-                                    {{ form_widget(form.plainPassword.first, {'attr': {'placeholder':'Password', 'class': 'form-control required', 'id': 'password1'}}) }}
-                                    <span class="input-icon"><i class=" icon-lock"></i></span>
-                                    {{ form_errors(form.plainPassword.first) }}
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <div class="form-group{% if not form.plainPassword.second.vars.valid %} has-error{% endif %}">
-                                    {{ form_widget(form.plainPassword.second, {'attr': {'placeholder':'Confirm Password', 'class': 'form-control required', 'id': 'password2'}}) }}
-                                    <span class="input-icon"><i class=" icon-lock"></i></span>
-                                    {{ form_errors(form.plainPassword.second) }}
-                                </div>
-                            </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            {{ form_widget(form.lastName, {'attr': {'class': 'mdl-textfield__input'}}) }}
+                            <label class="mdl-textfield__label">Last name</label>
+                            {{ form_errors(form.lastName) }}
                         </div>
-                        <div class="col-md-12">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            {{ form_widget(form.email, {'attr': {'placeholder':'Email', 'class': 'mdl-textfield__input'}}) }}
+                            <label class="mdl-textfield__label">Email</label>
+                            {{ form_errors(form.email) }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            {{ form_widget(form.plainPassword.first, {'attr': {'placeholder':'Password', 'class': 'mdl-textfield__input'}}) }}
+                            <label class="mdl-textfield__label">Password</label>
+                            {{ form_errors(form.plainPassword.first) }}
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            {{ form_widget(form.plainPassword.second, {'attr': {'placeholder':'Confirm Password', 'class': 'mdl-textfield__input'}}) }}
+                            <label class="mdl-textfield__label">Confirm password</label>
+                            {{ form_errors(form.plainPassword.second) }}
+                        </div>
+                        <div class="">
                             <div id="pass-info" class="clearfix"></div>
                             {{ form_rest(form) }}
                             {#{{ form_widget(form) }}#}
                             {# reCaptcha validation should go here #}
                         </div>
-                        <button type="submit" class="button_fullwidth col-md-6">Create an account</button>
-                        <a href="{{ path('login') }}" class="button_fullwidth-2 col-md-6">Go back to Login</a>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored mdl-button--blue-500">
+                            Create an account
+                        </button>
+                        <a href="{{ path('login') }}"
+                           class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--raised mdl-button--colored mdl-color--blue-grey-500">Back to login</a>
                         {{ form_end(form) }}
                     </div>
-                </div>
-            </div>
-        </div>
     </section><!-- End register -->
 {% endblock %}

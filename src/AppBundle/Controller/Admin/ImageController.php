@@ -3,13 +3,14 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Image;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Image controller.
- *
+ * @Security("has_role('ROLE_USER')")
  * @Route("admin/image")
  */
 class ImageController extends Controller
