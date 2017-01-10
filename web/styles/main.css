@@ -139,6 +139,10 @@ html>body {
     /* margin-bottom: -16px */
 }
 
+.mdl-navigation__link .material-icons {
+    margin-right: 16px;
+}
+
 .subpageheader {
     margin-top: 60px;
     margin-bottom: 40px;
