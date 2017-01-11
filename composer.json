@@ -31,7 +31,8 @@
         "php-curl-class/php-curl-class": "^7.1",
         "vich/uploader-bundle": "^1.4",
         "knplabs/knp-markdown-bundle": "^1.5",
-        "symfony/assetic-bundle": "^2.8"
+        "symfony/assetic-bundle": "^2.8",
+        "doctrine/cache": "^1.6"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

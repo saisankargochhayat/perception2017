@@ -103,3 +103,9 @@ assetic:
         cache_busting: ~
     filters:
         cssrewrite: ~
+
+doctrine_cache:
+    providers:
+        md_cache:
+          type: 'file_system'
+          namespace: 'md_html'

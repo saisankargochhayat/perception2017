@@ -35,15 +35,24 @@ class EventController extends Controller
     /**
      * Finds and displays a event entity.
      *
-     * @Route("/{id}", name="event_show")
+     * @Route("/{id}", name="event_show_by_id")
+     * @Route("/{slug}", name="event_show")
      * @Method("GET")
      * @param Event $event
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Event $event)
     {
+        $id = $event->getId();
+        $cache = $this->get('doctrine_cache.providers.md_cache');
+        $content = $cache->fetch('event:$id');
+        if(!$content) {
+            $content = $this->get('markdown.parser')->transformMarkdown($event->getContent());
+            $cache->save("event:$id", $content);
+        }
         return $this->render('event/show.html.twig', array(
             'event' => $event,
+            'content' => $content,
             'registered' => false
         ));
     }

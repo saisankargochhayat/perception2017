@@ -1,73 +1,41 @@
-{% extends 'base.html.twig' %}
+{% extends '::page.html.twig' %}
 
-{% block body %}
-    <h1>Event</h1>
+{% block pageid %}events event{% endblock %}
+{% block title %}{{ event.name }} - Perception 2017{% endblock %}
+{% block description %}{{ event.description }}{% endblock %}
+{% block before_content %}
+    <div class="event-ribbon"></div>
+{% endblock %}
 
-    <table>
-        <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ event.id }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ event.name }}</td>
-        </tr>
-        <tr>
-            <th>Slug</th>
-            <td>{{ event.slug }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ event.description }}</td>
-        </tr>
-        <tr>
-            <th>Content</th>
-            <td>{{ event.content }}</td>
-        </tr>
-        <tr>
-            <th>Attachments</th>
-            <td>{% if event.attachments %}{{ event.attachments|join(', ') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Time</th>
-            <td>{% if event.time %}{{ event.time|date('Y-m-d H:i:s') }}{% endif %}</td>
-        </tr>
-        <tr>
-            <th>Venue</th>
-            <td>{{ event.venue }}</td>
-        </tr>
-        <tr>
-            <th>Team Event</th>
-            <td>{{ event.teamEvent }}</td>
-        </tr>
-        <tr>
-            <th>Price</th>
-            <td>{{ event.price }}</td>
-        </tr>
-        <tr>
-            <th>Coordinators</th>
-            <td>
-                <ul>
-                    {% for coordinator in event.coordinators %}
-                        <li>{{ coordinator.name }}</li>
-                    {% endfor %}
-                </ul>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('event_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {% if registered %}
-            <a href="{{ path('event_unregister', { 'id': event.id }) }}">unregister</a>
-            {% else %}
-            <a href="{{ path('event_register', { 'id': event.id }) }}">register</a>
-            {% endif %}
-        </li>
-    </ul>
+{% block content %}
+    <div class="event-display mdl-grid">
+        <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+            <div class="mdl-card__media mdl-color-text--grey-50"
+                {% if event.image %}
+                style="background-image: url({{ asset('uploads/images/' ~ event.image.fileName) }})">
+                {% else %}
+                style="background-image: url({{ asset('images/event.jpg') }})">
+                {% endif %}
+            </div>
+            <!-- div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
+                <!--
+                {% if registered %}
+                    Seems interesting ? Click here to register
+                {% else %}
+                    You are registered for this event
+                {% endif %}
+                <div class="center">
+                    {% if registered %}
+                        <a href="{{ path('event_unregister', { 'id': event.id }) }}">unregister</a>
+                    {% else %}
+                        <a href="{{ path('event_register', { 'id': event.id }) }}">register</a>
+                    {% endif %}
+                </div>
+            </div -->
+            <div class="mdl-color-text--grey-700 mdl-card__supporting-text">
+                <h3>{{ event.name }}</h3>
+                {{ content | raw }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

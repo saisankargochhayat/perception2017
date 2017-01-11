@@ -77,8 +77,7 @@
             </section>
             <section id="competitions" class="competitions center mdl-color--white">
                 <div class="content-box mdl-grid">
-                    <a id="explore"></a>
-                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Competitions</h2>
+                    <h2 id="explore" class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Competitions</h2>
                     <div class="category mdl-cell mdl-cell--4-col">
                         <img class="img-responsive" src="{{ asset('images/custom-icon-cogs-600x518.png') }}">
                         <h4 class="mdl-typography--text-center">Technical</h4>
@@ -109,6 +108,9 @@
                     {% endfor %}
                     </div>
                 {% endif %}
+                <div class="content-box center">
+                    <a data-scroll href="#explore" class="mdl-button mdl-js-button mdl-js-ripple mdl-button--raised mdl-button-colored mdl-color--blue-600 mdl-color-text--white">Explore all events</a>
+                </div>
             </section>
             {% if hasCelebrityAppearances %}
             <section id="celebrities" class="celebrities mdl-color--purple-300 mdl-color-text--white">
