@@ -6,84 +6,97 @@
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap-material-design.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/ripples.min.css') }}">
-{%  endblock %}
+    {% stylesheets
+    'styles/bootstrap-material-design.css'
+    'styles/ripples.css' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% stylesheets
+    'styles/main-alt.css' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
 
 {% block body %}
-    <section id="login_bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-                    {% if error %}
-                        <div class="alert alert-warning">
-                            {{ error.messageKey|trans(error.messageData,'security') }}
-                        </div>
-                    {% endif %}
-                    <div id="login">
-                        <p class="text-center">
-                            <img src="{{ asset('images/perception.png') }}" alt="Perception Logo">
-                        </p>
-                        <hr>
-                        <form action="{{ path ('login') }}" method="post">
-                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6 login_social">
-                                    {% if redirect_url %}
-                                        <a href="{{ path('login_facebook', { 'redirect_url': redirect_url }) }}"
-                                           class="btn btn-primary btn-block">
-                                            <i class="icon-facebook"></i> {% trans %}user.login.facebook{% endtrans %}
-                                        </a>
-                                    {% else %}
-                                        <a href="{{ path('login_facebook') }}" class="btn btn-primary btn-block">
-                                            <i class="icon-facebook"></i> {% trans %}user.login.facebook{% endtrans %}
-                                        </a>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-6 col-sm-6 login_social">
-                                    {% if redirect_url %}
-                                        <a href="{{ path('login_google', { 'redirect_url': redirect_url }) }}"
-                                           class="btn btn-danger btn-block "><i
-                                                    class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
-                                    {% else %}
-                                        <a href="{{ path('login_google') }}"
-                                           class="btn btn-danger btn-block "><i
-                                                    class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
-                                    {% endif %}
-                                </div>
-                            </div> <!-- end row -->
-                            <div class="login-or">
-                                <hr class="hr-or">
-                                <span class="span-or">or</span></div>
-
-                            <div class="form-group">
-                                <input type="text" id="username" name="_username" class=" form-control "
-                                       placeholder="Username or Email" value="{{ last_username }}">
-                                <span class="input-icon"><i class=" icon-user"></i></span>
-                            </div>
-                            <div class="form-group" style="margin-bottom:5px;">
-                                <input type="password" id="password" name="_password" class=" form-control"
-                                       placeholder="Password" style="margin-bottom:5px;">
-                                <span class="input-icon"><i class="icon-lock"></i></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" id="remember_me" checked name="_remember_me"/>
-                                <label for="remember_me">Remember me</label>
-                            </div>
-                            {% if redirect_url %}
-                                <input type="hidden" name="redirect_url" value="{{ redirect_url }}"/>
-                            {% endif %}
-                            <p class="small">
-                                <a href="{{ path('account_request_password_reset') }}">Forgot Password?</a>
-                            </p>
-                            <button type="submit" class="button_fullwidth">Log in</button>
-                            <a href="{{ path('account_register') }}" class="button_fullwidth-2">Register</a>
-                        </form>
-                    </div>
+    <div class="container column full-height center">
+        <div class="column">
+            {% if error %}
+                <div class="alert alert-warning">
+                    {{ error.messageKey|trans(error.messageData,'security') }}
                 </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div id="login" class="login-well well">
+                <p class="center">
+                    <img class="img-responsive" src="{{ asset('images/perception.png') }}" alt="Perception Logo">
+                </p>
+                <form id="login-form" name="login-form" action="{{ path ('login') }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 login_social">
+                            {% if redirect_url %}
+                                <a href="{{ path('login_facebook', { 'redirect_url': redirect_url }) }}"
+                                   class="btn btn-raised btn-block" style="background: #3b579d; color: white">
+                                    <span>{% trans %}user.login.facebook{% endtrans %}</span>
+                                </a>
+                            {% else %}
+                                <a style="background: #3b579d; color: white" href="{{ path('login_facebook') }}" class="btn btn-raised btn-block">
+                                    <span>{% trans %}user.login.facebook{% endtrans %}</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 col-sm-6 login_social">
+                            {% if redirect_url %}
+                                <a href="{{ path('login_google', { 'redirect_url': redirect_url }) }}"
+                                   class="btn btn-danger btn-raised btn-block "><i
+                                            class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
+                            {% else %}
+                                <a href="{{ path('login_google') }}"
+                                   class="btn btn-danger btn-block btn-raised "><i
+                                            class="icon-google"></i> {% trans %}user.login.google{% endtrans %}</a>
+                            {% endif %}
+                        </div>
+                    </div> <!-- end row -->
+                    <div class="login-or">
+                        <hr class="hr-or">
+                        <h3 class="text-center">Sign in with email</h3>
+                    </div>
+
+                    <div class="form-group label-floating">
+                        <label for="username" class="control-label">Email</label>
+                        <input type="text" id="username" name="_username" class=" form-control " value="{{ last_username }}" />
+                    </div>
+                    <div class="form-group label-floating" style="margin-bottom:5px;">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" id="password" name="_password" class=" form-control" />
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="remember_me" checked name="_remember_me"/> Remember me
+                            </label>
+                        </div>
+                    </div>
+                    {% if redirect_url %}
+                        <input type="hidden" name="redirect_url" value="{{ redirect_url }}"/>
+                    {% endif %}
+                    <p class="small">
+                        <a href="{{ path('account_request_password_reset') }}">Forgot Password?</a>
+                    </p>
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <button type="submit" class="btn btn-success btn-raised btn-block">Log in</button>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <a href="{{ path('account_register') }}" class="btn btn-default btn-raised btn-block">Register</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </section> <!-- End login -->
+    </div>
 
 {% endblock %}
 
@@ -93,5 +106,10 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="{{ asset('scripts/material.js') }}"></script>
-    <script src="{{ asset('scripts/material.js') }}"></script>
+    <script src="{{ asset('scripts/ripples.js') }}"></script>
+    <script>
+        $(function () {
+            $.material.init();
+        });
+    </script>
 {% endblock %}
