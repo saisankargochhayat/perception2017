@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -46,6 +46,7 @@
 </head>
 <body class="{% block pageid %}{% endblock %}">
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+{% include 'partials/preloader.partial.twig' %}
 <script>
     if (document.location.hostname !== 'localhost' &&
         document.location.hostname !== '127.0.0.1' &&
