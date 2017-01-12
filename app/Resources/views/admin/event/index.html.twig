@@ -15,6 +15,7 @@
                 <th>Time</th>
                 <th>Venue</th>
                 <th>Team Event</th>
+                <th>Type</th>
                 <th>Price</th>
                 <th>Coordinators</th>
                 <th>Actions</th>
@@ -31,6 +32,7 @@
                     <td>{% if event.time %}{{ event.time|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{{ event.venue }}</td>
                     <td>{{ event.teamEvent }}</td>
+                    <td>{{ event.eventType }}</td>
                     <td>{{ event.price }}</td>
                     <td>
                         <ul>

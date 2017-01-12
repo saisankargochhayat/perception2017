@@ -27,7 +27,6 @@ class EventType extends AbstractType
             ->add('teamEvent')
             ->add('price')
             ->add('type', ChoiceType::class, [
-
                 'choices'           => [
                     'event.type.flagship_event' => Event::TYPE_FLAGSHIP,
                     'event.type.event' => Event::TYPE_EVENT,

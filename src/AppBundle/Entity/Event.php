@@ -16,7 +16,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Event
 {
-    const TYPE_EVENT = 4;
+    const TYPE_EVENT = 0;
     const TYPE_CELEBRITY_APPEARANCE = 1;
     const TYPE_GUEST_LECTURE = 2;
     const TYPE_WORKSHOP = 3;
@@ -55,7 +55,7 @@ class Event
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text", nullable=false)
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
@@ -571,5 +571,31 @@ class Event
     {
         $this->category = $category;
         return $this;
+    }
+
+    /** 
+     * Get event type description
+     */
+    public function getEventType() {
+        $ret = '';
+        switch($this->type) {
+            case Event::TYPE_EVENT:
+                $ret = 'Event';
+                break;
+            case Event::TYPE_FLAGSHIP:
+                $ret = 'Flagship';
+                break;
+            case Event::TYPE_WORKSHOP:
+                $ret = 'Workshop';
+                break;
+            case Event::TYPE_CELEBRITY_APPEARANCE:
+                $ret = 'Celebrity Appearance';
+                break;
+            case Event::TYPE_GUEST_LECTURE:
+                $ret = 'Guest Lecture';
+                break;
+        }
+
+        return $ret;
     }
 }
