@@ -3,36 +3,59 @@
 {% block title %}Perception 2017{% endblock %}
 {% block pageid %}home{% endblock %}
 
-{% block styles %}
-    {{ parent() }}
+{% block styles %}    
+    <link href='https://fonts.googleapis.com/css?family=Exo'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     {% stylesheets
+        'styles/bootstrap-material-design.css'
+        'styles/ripples.css'
         'styles/hover.css'
-    %}
-    <link rel="stylesheet" as="style" href="{{ asset_url }}" />
+     %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
+    {% endstylesheets %}
+    {% stylesheets
+    'styles/styles.css' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
     {% endstylesheets %}
 {% endblock %}
 
 {% block body %}
-    <div class="perception-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-layout--no-desktop-drawer-button">
-        <header class="perception-layout-header mdl-layout__header mdl-layout__header--scroll mdl-layout__header--transparent">
-            <div class="mdl-layout__header-row">
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <!-- Navigation -->
-                <nav class="perception-navigation mdl-navigation mdl-layout--large-screen-only">
-                    <a href="{{ path('event_index') }}" class="mdl-navigation__link">Events</a>
-                    <a data-scroll href="#competitions" class="mdl-navigation__link">Competitions</a>
-                    <a data-scroll href="#celebrities" class="mdl-navigation__link">Celebrities</a>
-                    <a data-scroll href="#lectures" class="mdl-navigation__link">Guest Lectures</a>
-                    <a data-scroll href="#workshops" class="mdl-navigation__link">Workshops</a>
-                    <a data-scroll href="#fun" class="mdl-navigation__link">Entertainment</a>
-                    <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
-                        <span>Register / Login</span>
-                    </a -->
-                </nav>
-            </div>
+    <div class="perception-layout">
+        <header class="perception-layout-header">
+            <nav class="perception-navbar navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <i class="material-icons">menu</i>
+                        </button>
+                        <a class="navbar-brand" href="{{ path('homepage') }}">
+                            <img alt="perception" src="{{ asset('images/perception-small.png') }}" />
+                        </a>
+                    </div>
+                    <div class="navbar-collapse collapse navbar-responsive-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ path('event_index') }}">Events</a></li>
+                            <li><a data-scroll href="#competitions">Competitions</a></li>
+                            <li><a data-scroll href="#celebrities">Celebrities</a></li>
+                            <li><a data-scroll href="#lectures">Guest Lectures</a></li>
+                            <li><a data-scroll href="#workshops">Workshops</a></li>
+                            <li><a data-scroll href="#fun">Entertainment</a></li>
+                            <!-- li><a href="javascript:void(0)">Schedule</a></li -->
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="{{ path('login') }}" class="login-link">
+                                    <span>Register</span>
+                                    <span class="material-icons">arrow_forward</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </header>
-        <div class="mdl-layout__drawer">
+        <!--div class="mdl-layout__drawer">
             <span class="mdl-layout-title mdl-color--blue-700 mdl-color-text--white">Perception 2017</span>
             <nav class="perception-navigation mdl-navigation mdl-layout--large-screen-only">
                 <a href="{{ path('homepage') }}" class="mdl-navigation__link">Home</a>
@@ -44,83 +67,115 @@
                 <a data-scroll href="#fun" class="mdl-navigation__link">Entertainment</a>
                 <!-- a href="{{ path('login') }}" class="mdl-layout__tab mdl-navigation__link">
                         <span>Register / Login</span>
-                    </a -->
+                    </a>
             </nav>
-        </div>
-        <main class="perception-layout-content mdl-layout__content mdl-color-text--grey-600">
-            <section class="section-head">
-                <div class="section-content box center">
+        </div -->
+        <main class="perception-layout-container container-fluid">
+            <section class="perception-header box row">
+                <div class="perception-header__left intro col-md-6 col-sm-12 center">
                     <div class="logo-wrapper">
                         <img class="logo" src="/images/perception.png" />
                     </div>
-                    <h3 class="mdl-typography--headline mdl-color-text--white" >
+                    <h3 class="intro__subheader mdl-color-text--grey-800">
                         The annual techno literary management fest of College of Engineering and Technology, Bhubaneswar
                     </h3>
-                    <div class="row center">
-                        <a data-scroll href="#explore" class="mdl-button mdl-js-button mdl-js-ripple mdl-button--raised mdl-button-colored mdl-color--light-blue-600 mdl-color-text--white">Explore</a>
+                    <p class="intro__text">
+                        <br><br><br>
+                    </p>
+                    <div class="text-center">
+                        <a data-scroll href="#explore" class="btn btn-raised btn-colored btn-info">Explore</a>
                     </div>
                 </div>
-            </section>
-            <section class="mdl-color--white countdown">
-                <div class="content-box center">
-                    <h3 class="mdl-typography--text-center">31<sup>th</sup> January to 2<sup>nd</sup> February </h3>
-                    <h5 class="mdl-typography--text-center">We are almost there!</h5>
-                    <div id="clockdiv">
+                <div class="perception-header__right countdown col-md-6 col-sm-12 col center">
+                    <h3 class="text-center">31<sup>th</sup> January to 2<sup>nd</sup> February </h3>
+                    <h5 class="text-center">We are almost there!</h5>
+                    <div id="clockdiv" class="clockdiv">
                         <div>
-                            <span class="days"></span>
+                            <div class="days number"></div>
                             <div class="smalltext">Days</div>
                         </div>
                         <div>
-                            <span class="hours"></span>
+                            <div class="hours number"></div>
                             <div class="smalltext">Hours</div>
                         </div>
                         <div>
-                            <span class="minutes"></span>
+                            <div class="minutes number"></div>
                             <div class="smalltext">Minutes</div>
                         </div>
                         <div>
-                            <span class="seconds"></span>
+                            <div class="seconds number"></div>
                             <div class="smalltext">Seconds</div>
                         </div>
                     </div>
+                    <div id="anim">
+                        <img class="perspective sun" src="{{ asset('images/sun.png') }}"  />
+                        <img class="perspective monuments" src="{{ asset('images/monuments.png') }}" />
+                        <img class="perspective hills" src="{{ asset('images/hills.png') }}" />
+                        <img class="balloon bigballoon" src="{{ asset('images/bigballoon.png') }}" />
+                        <img class="balloon smallballoon" src="{{ asset('images/smallballoon.png') }}" />
+                        <img class="balloon smallballoon2" src="{{ asset('images/smallballoon.png') }}" />
+                        <img class="cloud littlecloud" src="{{ asset('images/littlecloud.png') }}" />
+                        <img class="cloud bigcloud" src="{{ asset('images/bigcloud.png') }}" />
+                        <img class="cloud littlecloud2" src="{{ asset('images/littlecloud.png') }}" />
+                    </div>
                 </div>
             </section>
-            <section id="competitions" class="competitions center mdl-color--white">
-                <div class="content-box mdl-grid">
-                    <h2 id="explore" class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Competitions</h2>
-                    <div class="category mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive hvr-bob" src="{{ asset('images/custom-icon-cogs-600x518.png') }}">
-                        <h4 class="mdl-typography--text-center">Technical</h4>
+            <section class="perception__trailer center bleed">
+                <h2 class="section-heading">The Infinity</h2>
+                <p class="section-subhead"> </p>
+                <div class="video">
+                    <div class="video__frame embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" id="embed" src="https://www.youtube.com/embed/ThNaSkM-HwA?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
                     </div>
-                    <div class="category mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive hvr-bob" src="{{ asset('images/custom-icon-briefcase-closed-600x518.png') }}">
-                        <h4 class="mdl-typography--text-center">Management</h4>
-                    </div>
-                    <div class="category mdl-cell mdl-cell--4-col">
-                        <img class="img-responsive hvr-bob" src="{{ asset('images/custom-icon-ballpoint-600x518.png') }}">
-                        <h4 class="mdl-typography--text-center">Literary</h4>
+                    <div class="video__caption">
+                        Perception 2017 | Infinity and Beyond
                     </div>
                 </div>
-                {% if hasFlagships %}
-                <div class="content-box featured-events center mdl-grid">
-                    {% for event in flagships %}
-                    <div class="competition event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col"
-                            {% if event.image %}
-                         style="background-image: url({{ asset('uploads/images/' ~ event.image.fileName) }})">
-                            {% else %}
-                        style="background-image: url({{ asset('images/event.jpg') }})">
-                        {% endif %}
-                        <div class="mdl-card__title mdl-card--expand"></div>
-                        <div class="mdl-card__actions">
-                            <span class="mdl-color-text--black">{{ event.name }}</span>
-                        </div>
+            </section>
+            <section class="perception__photos photo-grid"> 
+                <!-- img class="img-responsive" src="http://placehold.it/450x450" />
+                <img class="img-responsive" src="http://placehold.it/450x450" />
+                <img class="img-responsive" src="http://placehold.it/450x450" / -->
+            </section>
+            <section id="competitions" class="perception__competitions center">
+                <h2 id="explore" class="section-heading" >Competitions</h2>
+                <div class="competition-categories box row">
+                    <div class="category col-sm-12 col-md-4">
+                        <a href="/events#tech"><img class="img-responsive hvr-bob" src="{{ asset('images/custom-icon-cogs-600x518.png') }}"></a>
+                        <h4 class="text-center"><a href="/events#tech">Technical</a></h4>
                     </div>
+                    <div class="category col-sm-12 col-md-4">
+                        <a href="/events#management"><img class="img-responsive hvr-bob" src="{{ asset('images/custom-icon-briefcase-closed-600x518.png') }}"></a>
+                        <h4 class="text-center"><a href="/events#management">Management</a></h4>
+                    </div>
+                    <div class="category col-sm-12 col-md-4">
+                        <a href="/events#literary"><img class="img-responsive hvr-bob" src="{{ asset('images/custom-icon-ballpoint-600x518.png') }}"></a>
+                        <h4 class="text-center"><a href="/events#literary">Literary</a></h4>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a data-scroll href="{{ path('event_index') }}" class="btn btn-raised btn-colored btn-info">Explore all events</a>
+                </div>
+            </section>
+                {% if hasFlagships %}
+            <section class="perception__featured">
+                <h2 id="explore" class="section-heading" >Featured Events</h2>
+                <!-- p class="section-subhead"></p -->
+                <div class="container featured-events center">
+                    <ul class="event-list row row-centered">
+                    {% for event in flagships %}
+                    <li class="col-sm-12 col-md-4 col-lg-3 col-centered">
+                        <a class="event-logo" href="/event/{{event.slug}}">
+                            <img src="{{ asset('images/event.jpg') }}" />
+                            <div class="event-description">
+                                {{ event.description }}
+                            </div>
+                        </a>
+                    </li>
                     {% endfor %}
+                    </ul>
                     </div>
                 {% endif %}
-                <div class="content-box center">
-                    <a data-scroll href="{{ path('event_index') }}" class="mdl-button mdl-js-button mdl-js-ripple mdl-button--raised mdl-button-colored mdl-color--blue-600 mdl-color-text--white">Explore all events</a>
-                </div>
             </section>
             {% if hasCelebrityAppearances %}
             <section id="celebrities" class="celebrities mdl-color--purple-300 mdl-color-text--white">
@@ -177,7 +232,7 @@
                 </div>
             </section>
             {% endif %}
-            <section id="fun" class="entertainment mdl-color--yellow-300 mdl-color-text--grey-700">
+            <!-- section id="fun" class="entertainment mdl-color--yellow-300 mdl-color-text--grey-700">
                 <div class="content-box center mdl-grid">
                     <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Entertainment</h2>
                     <div class="fun-event event-card mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col" style="background-image: url({{ asset('images/event.jpg') }})">
@@ -199,62 +254,67 @@
                         </div>
                     </div>
                 </div>
+            </section -->
+            <section class="perception__sponsors">
             </section>
-            <section class="sponsors">
-            </section>
-            <section id="contact" class="contact-us mdl-color--grey-300 mdl-color-text--grey-700">
-                <div class="content-box mdl-grid">
-                    <h2 class="mdl-typography--text-center section-header mdl-cell mdl-cell--12-col" >Contact Us</h2>
-                    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
-                        <h3>Address</h3>
-                        <address>College of Engineering and Technology,<br>
-                            Kalinga Nagar,<br>
-                            Ghatikia,<br>
-                            Bhubaneswar
-                        </address>
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
-                        <h3>Get in touch</h3>
-                        <ul class="contact-options">
-                            <li><i class="material-icons icon">mail</i><a href="mailto:perception@cetb.in">perception@cetb.in</a></li>
-                            <li><img class="icon" src="/images/facebook-box-dark.png" width="24" height="24"><a href="https://www.facebook.com/cet.bbsr.perception/">@cet.bbsr.perception</a></li>
-                        </ul>
-                    </div>
-                    <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-desktop">
-                        <form id="contact-us-form">
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="text" id="name" name="Name" />
-                                <label class="mdl-textfield__label" for="name">Name</label>
-                            </div>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" type="email" id="email" name="Email" />
-                                <label class="mdl-textfield__label" for="email">Email</label>
-                            </div>
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <textarea class="mdl-textfield__input" type="text" rows="3" id="message" name="Message"></textarea>
-                                <label class="mdl-textfield__label" for="message">Message</label>
-                            </div>
-                            <div>
-                                <button type="submit" id="contact-us-send" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                                    Send
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+            <section class="perception__contact-us">
+                <h2 class="section-heading">Find us here</h2>
+                <p class="section-subhead"></p>
+                <div class="box map-container">
+                    <iframe class="map-embed" src="//www.google.com/maps/embed/v1/place?q=College%20of%20Engineering%20and%20Technology,%20Bhubaneswar&zoom=17&key=AIzaSyB4rXPkz--uY4KYLEWPiuIl5PdueEyPNbs">
+                    </iframe>
                 </div>
             </section>
-            {% include 'partials/footer.partial.html.twig' %}
+            {# % include 'partials/footer.partial.html.twig' % #}
         </main>
+        <footer id="footer" class="perception-footer">
+            <ul class="footer__row footer__social-links">
+                <li>
+                    <a class="twitter" href="https://twitter.com"></a>
+                </li>
+                <li>
+                    <a class="facebook" href="https://www.facebook.com/cet.bbsr.perception"></a>
+                </li>
+                <li>
+                    <a class="google" href="#"></a>
+                </li>
+            </ul>
+            <div class="footer__row text-center footer__image">
+                <img src="{{ asset('images/perception-small.png') }}" />
+            </div>
+            <div class="footer__row">
+                Copyright &copy 2017 All Rights Reserved
+            </div>
+            <div class="footer__row footer__links">
+                <a href="#">About us</a>
+                <a href="#">Contact us</a>
+                <a href="#">Terms & Privacy</a>
+            </div>
+        </footer>
     </div>
 {% endblock %}
 
 {% block tailscripts %}
     <!-- script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script -->
-    {{ parent() }}
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% javascripts
+        'scripts/material.js'
+        'scripts/ripples.js'
         'scripts/smooth-scroll.js'
         'scripts/index.js'
     %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script defer>
+        $(function () {
+            $.material.init();
+            $('#anim').addClass('animate');
+        });
+    </script>
+    {% javascripts 'scripts/gmaps.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
