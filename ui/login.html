@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - Formplexy</title>
+
+    <!-- Latest compiled and minified JavaScript and CSS 
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    -->
+
+    <!-- Javascript -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/formplexy-validation.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/formplexy-bootstrap-light.css">
+    <link rel="stylesheet" href="assets/css/iconfont.css">
+  </head>
+  <body>
+
+    <div class="container formplexy">
+      <!-- Logo -->
+      <div class="row">
+        <div class="col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12 logo">
+          <img src="assets/img/logo_light.png" alt="logo" class="img-responsive">
+        </div>
+      </div>
+
+      <!-- Form Base -->
+      <div class="row">
+        <div class="form-base col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12">
+          <header>
+            <h1>Login</h1>
+          </header>
+
+          <!-- Form -->
+          <section>
+            <form action="success.php" method="post" id="login-form">
+              
+              <!-- Socials - delete this section if you don't want social connects -->
+              <button class="btn social social-facebook"><span aria-hidden="true" class="social-icon icon-social-facebook"></span>with Facebook</button>
+              <button class="btn social social-twitter pull-right"><span aria-hidden="true" class="social-icon icon-social-twitter"></span>with Twitter</button>
+              <div class="clearfix"></div>
+              <!-- /.Socials -->
+
+              <div class="input-group login-username"><div class="input-group-addon">Username</div><input type="text" placeholder="User name" name="login-username" id="login-username"><span aria-hidden="true" id="status-username" class="status-icon"></span></div>
+              <div class="input-group login-password"><div class="input-group-addon">Password</div><input type="password" placeholder="Password" name="login-password" id="login-password"><span aria-hidden="true" id="status-password" class="status-icon"></span></div>
+              
+              <!-- Checkbox area - Keep me logged in -->
+              <!--
+              <div class="input-wrapper">
+                <div class="checkbox-custom">
+                  <input type="checkbox" name="login-keep" id="login-keep" class="toggle toggle-round">
+                  <label for="login-keep"></label>
+                </div>
+                <label for="login-keep">Keep me logged in</label>
+              </div> 
+              <div class="clearfix"></div>
+              -->
+
+              <div class="row section-action">
+                <!-- Forgotten Password Trigger -->
+                <div class="col-xs-8">
+                  <a class="forgotten-password-trigger custom-color">Forgotten password?</a>
+                </div>
+                <!-- Submit -->
+                <div class="col-xs-4">
+                  <button class="btn primary pull-right custom-color-back">Login</button>
+                </div>
+              </div>
+            </form>
+          </section>
+
+          <!-- Forgotten Password -->
+          <section class="forgotten-password">
+            <form action="donothing" method="post" id="forgotten-password-form">
+              <div class="input-group col-sm-7 col-xs-12 login-forgotten-password"><input type="text" placeholder="Email" name="login-forgotten-password" id="login-forgotten-password"><span aria-hidden="true" id="status-forgotten-password" class="status-icon"></span></div>
+              <!-- Submit -->
+              <button class="btn primary col-sm-4 col-sm-push-1 col-xs-12 custom-color-back">Send</button>
+            </form>
+            <!-- Forgotten Password Text -->
+            <p>We'll send you e-mail with password reset.</p>
+            <div class="clearfix"></div>
+          </section>
+          
+        </div>
+      </div>
+
+      <!-- Sign Up / Login Switch -->
+      <div class="row">
+        <div class="account-switch col-lg-4 col-lg-push-4 col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12 text-center">
+          <p>Don't have an account? <a href="signup.php" class="custom-color">Sign up</a></p>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>
