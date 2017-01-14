@@ -73,14 +73,14 @@
         <main class="perception-layout-container container-fluid">
             <section class="perception-header box row">
                 <div class="perception-header__left intro col-md-6 col-sm-12 center">
-                    <div class="logo-wrapper">
-                        <img class="logo" src="/images/perception.png" />
+                    <div class="logo-wrapper text-center">
+                        <img class="img-responsive" src="/images/perception.png" />
                     </div>
                     <h3 class="intro__subheader mdl-color-text--grey-800">
                         The annual techno literary management fest of College of Engineering and Technology, Bhubaneswar
                     </h3>
                     <p class="intro__text">
-                        <br><br><br>
+                        <br><br>
                     </p>
                     <div class="text-center">
                         <a data-scroll href="#explore" class="btn btn-raised btn-colored btn-info">Explore</a>
@@ -167,7 +167,7 @@
                     <li class="col-sm-12 col-md-4 col-lg-3 col-centered">
                         <a class="event-logo" href="/event/{{event.slug}}">
                             {% if event.image %}
-                            <img src="{{ asset('uploads/images/' ~ event.image.fileName) }}" />>
+                            <img src="{{ asset('uploads/images/' ~ event.image.fileName) }}" />
                             {% else %}
                             <img src="{{ asset('images/event.jpg') }}" />
                             {% endif %}
@@ -205,9 +205,9 @@
                     {% for event in celebrityAppearances %}
                     <div class="guest-lecture person mdl-cell mdl-cell--4-col">
                         {% if event.image %}
-                            <img class="img-responsive img-circle" src="{{ asset('uploads/images/' ~ event.image.fileName) }}">
+                            <img class="img-responsive img-circle" src="{{ asset('uploads/images/' ~ event.image.fileName) }}" />
                         {% else %}
-                            <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}">
+                            <img class="img-responsive img-circle" src="{{ asset('images/silhouette.png') }}" />
                         {% endif %}
                         <h4 class="mdl-typography--text-center">{{ event.description }}</h4>
                     </div>
@@ -315,6 +315,10 @@
     <script defer>
         $(function () {
             $.material.init();
+        });
+
+        //start animation on load, not DOMContentLoaded
+        window.addEventListener("load", function(event) {
             $('#anim').addClass('animate');
         });
     </script>

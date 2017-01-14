@@ -1966,10 +1966,10 @@ section {
 
 /* animations */
 #anim {
-  height: 440px;
+  height: 100vw;
+  max-height: 420px;
   overflow: hidden;
-  position: relative;
-  width: 610px; }
+  position: relative; }
   #anim img {
     position: absolute; }
   #anim .perspective {
@@ -1980,8 +1980,6 @@ section {
     left: 4%;
     top: 29%;
     width: 93%;
-    animation: rotating 60s linear infinite;
-    animation-delay: 4.2s;
     transform-origin: 50% 50%;
     transition-delay: 3s; }
   #anim .monuments {
@@ -2034,6 +2032,10 @@ section {
     transform: translate3d(-260%, 0, 0);
     transition-delay: 4.2s;
     transition-duration: 2.6s; }
+
+#anim.animate .sun {
+  animation: rotating 60s linear infinite;
+  animation-delay: 4.2s; }
 
 #anim.animate .balloon {
   transform: translate3d(0, 0, 0); }
