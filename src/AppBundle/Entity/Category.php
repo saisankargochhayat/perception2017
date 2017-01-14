@@ -124,5 +124,9 @@ class Category
     {
         return $this->icon;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }
 

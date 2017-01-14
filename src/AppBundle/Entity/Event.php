@@ -598,4 +598,8 @@ class Event
 
         return $ret;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }

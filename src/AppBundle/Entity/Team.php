@@ -92,4 +92,8 @@ class Team
     {
         return $this->event;
     }
+
+    public function __toString() {
+        return $this->name;
+    }
 }
